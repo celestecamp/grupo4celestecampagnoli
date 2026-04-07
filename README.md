@@ -11,10 +11,10 @@ Curso de Estructuras de Datos y Algoritmos I, Universidad Nacional de Lujan
 ## N° de grupo: 4
 ## Alumnos:
 
-Brayotta, Ignacio | 200817 | \
+Brayotta, Ignacio | 200817 | ignaciobrayotta@gmail.com \
 Campagnoli Martinez, María Celeste | 190162 | celestecampm@gmail.com \
-Fabrizio, Thiago | 196653 | \
-Gaitan, Ignacio | 182834 | \
-Guibaud, Francisco | 204884 | \
-Manrique, Lautaro | 192138 | \
+Fabrizio, Thiago | 196653 | fthiagito@gmail.com \
+Gaitan, Ignacio | 182834 | ignaciogaitan2002@gmail.com \
+Guibaud, Francisco | 204884 | guibaud11@gmail.com \
+Manrique, Lautaro | 192138 | manrilau13@gmail.com \
 Rodikov, Igor | 208123 |
