@@ -73,8 +73,8 @@ tales que la suma de los elementos de cada subconjunto sumen una cantidad dada.
 Por ejemplo:   Dado el conjunto A = {10, 3, 1, 7, 4, 2}. La lista de los conjuntos que sumen 7 sería: 
 R = [{3, 4}, {1, 4, 2}, {7}]*/
 
-// int ** subconjuntosQueSumanN(int conjunto[], int n);
-void subconjuntosQueSumanN(int conjunto[], int tamano, int n, char **output);
+int ** subconjuntosQueSumanN(int conjunto[], int n);
+//void subconjuntosQueSumanN(int conjunto[], int tamano, int n, char **output);
 
 /*NOTA: Para facilitar la resolución pueden optar por el primer prototipo según el cual la función devuelve un 
 arreglo de apuntadores a arreglos de enteros (los subconjuntos), o por el segundo que establece que el tipo 
