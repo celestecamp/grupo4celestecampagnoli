@@ -18,7 +18,7 @@ void ejercicio4();
 void ejercicio6();
 //void ejercicio7();
 void ejercicio8();
-//void ejercicio9();
+void ejercicio9();
 //void ejercicio10();
 
 void mostrarMenu() {
@@ -110,7 +110,7 @@ int main() {
       case 9:
         limpiarPantalla();
         printf("-- 9. DIVISIBLE POR 7 --\n");
-        //ejercicio9();
+        ejercicio9();
         break;
       case 10:
         limpiarPantalla();
@@ -309,9 +309,33 @@ void ejercicio8() {
   getchar();
 };
 
-/*void ejercicio9() {
-  //
-};*/
+void ejercicio9() {
+  char ingresado[50];
+  int numero;
+
+  while (1) {
+    printf("Ingrese un numero entero para verificar: ");
+    fgets(ingresado, sizeof(ingresado), stdin);
+
+    if (numero_valido(ingresado) == 1) {
+      numero = str_a_int(ingresado);
+      break;
+    } else {
+      printf("Numero invalido. intentar nuevamente.\n");
+    }
+  }
+
+  printf("\nResultado:\n");
+
+  if (divisiblePor7(numero)) {
+    printf("El numero %d es divisible por 7\n", numero);
+  } else {
+    printf("El numero %d no es divisible por 7\n", numero);
+  }
+
+  printf("\nPresione ENTER para volver al menu...");
+  getchar();
+};
 
 /*void ejercicio10() {
   //
