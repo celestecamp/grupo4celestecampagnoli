@@ -62,7 +62,7 @@ float partedecimal(int m, int n, int d, int nivel){
 
     nuevo = m * 10;
 
-    num_decimal = division_entera_rec(nuevo, n, &resto);
+    num_decimal = division_decimal(nuevo, n, &resto);
 
     for (int i=0; i<= nivel; i++){
         posicion /= 10;
