@@ -14,7 +14,7 @@ void ingresarOpcion(char *ingresado, int *nro_elegido);
 void ejercicio2();
 //void ejercicio3();
 void ejercicio4();
-//void ejercicio5();
+void ejercicio5();
 void ejercicio6();
 //void ejercicio7();
 void ejercicio8();
@@ -90,7 +90,7 @@ int main() {
       case 5:
         limpiarPantalla();
         printf("-- 5. AGREGAR SEPARADOR DE MILES --\n");
-        //ejercicio5();
+        ejercicio5();
         break;
       case 6:
         limpiarPantalla();
@@ -205,9 +205,28 @@ void ejercicio4() {
   getchar();
 };
 
-/*void ejercicio5() {
-  
-};*/
+void ejercicio5() {
+    char numero[100];
+    bool valido = false;
+    
+    while (!valido){
+        printf("[INPUT] Ingrese el numero al que desea agregar los puntos de miles: ");
+        fgets(numero, sizeof(numero), stdin);
+        numero[strcspn(numero, "\n")] = '\0';
+
+        valido = numero_valido(numero);
+
+        if (!valido){
+            printf("[ERROR] No se ingresaron numeros validos.\n");
+        }
+    }
+
+    agregarSeparadorMiles(numero);
+    printf("[OUTPUT] Su numero con los puntos de los miles es %s\n", numero);
+
+    printf("\n Presione ENTER para volver al menu\n");
+    getchar() 
+};
 
 void ejercicio6() {
   char cadena[50] = "";
