@@ -83,6 +83,48 @@ float division_decimal(int nuevo, int n, int *resto){
 }
 
 // EJERCICIO 5
+char* separadorMiles(char* numero, int cantidadPuntos, int longitudUsada, int contador){
+    if (longitudUsada==0){
+        return numero;
+    }
+
+    if (contador<=3){
+        numero[longitudUsada+cantidadPuntos] = numero[longitudUsada];
+
+        if (cantidadPuntos==1){
+            numero[longitudUsada] = '.';
+        }
+
+        contador++;
+        longitudUsada--;
+        return separadorMiles(numero, cantidadPuntos, longitudUsada, contador);
+    }
+    else{
+        contador=1;
+        numero[longitudUsada+cantidadPuntos]= '.';
+        cantidadPuntos--;
+        return separadorMiles(numero, cantidadPuntos, longitudUsada, contador);
+    }
+}
+
+
+
+char * agregarSeparadorMiles(char numero[]){
+    int largoString = strlen(numero);
+    int inicio = 0;
+    
+    if (largoString>0 && numero[0]=='-'){
+        largoString--;
+        inicio++;
+    }
+    
+    int cantidadPuntos = (largoString - 1) / 3;
+    int contador = 0;
+
+    separadorMiles(&numero[inicio], cantidadPuntos, largoString, contador);
+
+    return numero;
+}
 
 // EJERCICIO 6
 int ondaAux(char *onda, char seniales[], int i, int j) {
