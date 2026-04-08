@@ -11,9 +11,9 @@ void ingresarOpcion(char *ingresado, int *nro_elegido);
 
 // funciones inicializadoras
 //void ejercicio1();
-//void ejercicio2();
+void ejercicio2();
 //void ejercicio3();
-//void ejercicio4();
+void ejercicio4();
 //void ejercicio5();
 void ejercicio6();
 //void ejercicio7();
@@ -75,7 +75,7 @@ int main() {
       case 2:
         limpiarPantalla();
         printf("-- 2. PRODUCTO --\n");
-        //ejercicio2();
+        ejercicio2();
         break;
       case 3:
         limpiarPantalla();
@@ -85,7 +85,7 @@ int main() {
       case 4:
         limpiarPantalla();
         printf("-- 4. DIVISION --\n");
-        //ejercicio4();
+        ejercicio4();
         break;
       case 5:
         limpiarPantalla();
@@ -136,17 +136,74 @@ int main() {
   
 }; */
 
-/*void ejercicio2() {
-  
-};*/
+void ejercicio2() {
+  int multiplicando;
+  int multiplicador;
+  printf("\n\t INGRESE EL VALOR DEL MULTIPLICANDO : ");
+  while (scanf("%d",&multiplicando) != 1){
+    printf("\n\t VALOR DEL MULTIPLICANDO INVALIDO, INTENTE NUEVAMENTE...");
+    printf("\n\t INGRESE EL VALOR DEL MULTIPLICANDO : ");
+    while(getchar()!= '\n'){}     // LIMPIO EL BUFFER PARA CUANDO SE INGRESA MAL, LO VUELVA A INGRESAR.
+  }
+  while(getchar()!= '\n'){}   // LIMPIO EL BUFFER SI INGRESO BIEN, PARA AHORRARME ERORRES EN POSIBLES FGETS O INPUTS
+
+  printf("\n\t INGRESE EL VALOR DEL MULTIPLICADOR : ");
+  while (scanf("%d",&multiplicador) != 1){
+    printf("\n\t VALOR DEL MULTIPLICADOR INVALIDO, INTENTE NUEVAMENTE...");
+    printf("\n\t INGRESE EL VALOR DEL MULTIPLICADOR : ");
+    while(getchar()!= '\n'){}   
+  }
+  while(getchar()!= '\n'){} 
+
+// TERMINO LOS INGRESOS DE VALORES
+
+  int resultado = producto(multiplicador,multiplicando);
+  printf("\n\n EL PRODUCTO DE %d POR %d ES : %d",multiplicando,multiplicador,resultado);
+
+  printf("\n Presione ENTER para volver al menu\n");
+  getchar();
+};
 
 /*void ejercicio3() {
   
 };*/
 
-/*void ejercicio4() {
+void ejercicio4() {
+  int dividendo;
+  int divisor;
+  int decimales;
+  printf("\n\t INGRESE EL VALOR DEL DIVIDENDO : ");
+  while (scanf("%d",&dividendo) != 1){
+    printf("\n\t VALOR DEL DIVIDENDO INVALIDO, INTENTE NUEVAMENTE...");
+    printf("\n\t INGRESE EL VALOR DEL DIVIDENDO : ");
+    while(getchar()!= '\n'){}     // LIMPIO EL BUFFER PARA CUANDO SE INGRESA MAL, LO VUELVA A INGRESAR.
+  }
+  while(getchar()!= '\n'){}   // LIMPIO EL BUFFER SI INGRESO BIEN, PARA AHORRARME ERORRES EN POSIBLES FGETS O INPUTS
+
+  printf("\n\t INGRESE EL VALOR DEL DIVISOR : ");
+  while (scanf("%d",&divisor) != 1 || divisor==0){
+    printf("\n\t VALOR DEL DIVISOR INVALIDO, INTENTE NUEVAMENTE...");
+    printf("\n\t INGRESE EL VALOR DEL DIVISOR : ");
+    while(getchar()!= '\n'){}   
+  }
+  while(getchar()!= '\n'){}
+
+  printf("\n\t INGRESE EL VALOR DE LA MAXIMA CANTIDAD DE DECIMALES SI SE REQUIERE : ");
+  while (scanf("%d",&decimales) != 1 || (decimales<1 || decimales>10)){
+    printf("\n\t VALOR DE DECIMALES INVALIDO, INTENTE NUEVAMENTE...");
+    printf("\n\t INGRESE EL VALOR DE LA MAXIMA CANTIDAD DE DECIMALES SI SE REQUIERE : ");
+    while(getchar()!= '\n'){}   
+  }
+  while(getchar()!= '\n'){}
+
+// TERMINO LOS INGRESOS DE VALORES.
+
+  float resultado = division(dividendo,divisor,decimales);
+  printf("\n\t EL RESULTADO DE LA DIVISION %d / %d = %.*f",dividendo,divisor,decimales,resultado);
   
-};*/
+  printf("\n Presione ENTER para volver al menu\n");
+  getchar();
+};
 
 /*void ejercicio5() {
   
