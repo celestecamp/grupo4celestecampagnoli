@@ -29,8 +29,7 @@ de que la división no sea exacta, se devolverán hasta d cifras decimales (si e
 valor de 1 a 10 a ingresar como precisión de la división. */
 
 float division(int m, int n, int d);
-float partedecimal(int m, int n, int d, int nivel);
-float division_decimal(int nuevo, int n, int *resto);
+
 
 
 //Ejercicio 5
