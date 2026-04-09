@@ -77,6 +77,14 @@ int producto(int m, int n) {
 
 // EJERCICIO 3
 
+int terminoSeridFibonacci(int k){
+    if (k==1 || k==0){
+        return 1;
+    }
+    return terminoSeridFibonacci (k-1)+terminoSeridFibonacci(k-2);
+
+}
+
 // EJERCICIO 4
 float division(int m, int n,int d){
     int signo = 1;

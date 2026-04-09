@@ -174,9 +174,19 @@ void ejercicio2() {
   getchar();
 };
 
-/*void ejercicio3() {
-  
-};*/
+/**/
+void ejercicio3() {
+  int k;
+  while(getchar()!= '\n'){} 
+
+  int resultado = terminoSeridFibonacci(k);
+
+  printf("\n\n EL TERMINO %d DE FIBONACCI ES : %d", k, resultado);
+
+  printf("\n Presione ENTER para volver al menu\n");
+  getchar();
+
+};
 
 void ejercicio4() {
   int dividendo;
