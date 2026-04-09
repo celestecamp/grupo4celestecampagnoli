@@ -3,23 +3,27 @@
 #include <string.h>
 #include <stdbool.h>
 #include "tp_1_recursividad.h"
-#include "./libs/validaciones/headers/validaciones.h"
+#include "../libs/validaciones/headers/validaciones.h"
 
 // menu
 void mostrarMenu();
 void ingresarOpcion(char *ingresado, int *nro_elegido);
 
 // funciones inicializadoras
-//void ejercicio1();
+void ejercicio1();
 void ejercicio2();
 //void ejercicio3();
 void ejercicio4();
 void ejercicio5();
 void ejercicio6();
-//void ejercicio7();
+void ejercicio7();
 void ejercicio8();
 void ejercicio9();
 //void ejercicio10();
+
+bool func_uno_base(void);
+bool func_siete_esta_bien(char entrada[], int *n);
+char *func_siete_base(int n);
 
 void mostrarMenu() {
   printf("------ TP1: RECURSIVIDAD ------\n\n");
@@ -70,7 +74,7 @@ int main() {
       case 1:
         limpiarPantalla();
         printf("-- 1. PALINDROMO --\n");
-        //ejercicio1();
+        ejercicio1();
         break;
       case 2:
         limpiarPantalla();
@@ -100,7 +104,7 @@ int main() {
       case 7:
         limpiarPantalla();
         printf("-- 7. MAFIA CHINA --\n");
-        //ejercicio7();
+        ejercicio7();
         break;
       case 8:
         limpiarPantalla();
@@ -132,9 +136,15 @@ int main() {
 
 //--------------------------------------- LLAMADAS A FUNCIONES DEL TP
 
-/*void ejercicio1() {
-  
-}; */
+void ejercicio1(){
+    if (func_uno_base()==true){
+        printf("True. La palabra ingresada fue un palindromo.\n");
+    } else {
+        printf("False. La palabra ingresada no fue un palindromo.\n");
+    }
+  printf("\n Presione ENTER para volver al menu\n");
+  getchar();
+}
 
 void ejercicio2() {
   int multiplicando;
@@ -225,7 +235,7 @@ void ejercicio5() {
     printf("[OUTPUT] Su numero con los puntos de los miles es %s\n", numero);
 
     printf("\n Presione ENTER para volver al menu\n");
-    getchar() 
+    getchar();
 };
 
 void ejercicio6() {
@@ -261,9 +271,37 @@ void ejercicio6() {
     getchar();
 };
 
-/*void ejercicio7() {
-  //
-};*/
+void ejercicio7(){
+    int n=0;
+    printf("Vamos a ver la apariencia del grupo de chinos que asisten a una reunión de nivel “n”.\nIngrese el numero N:\n");
+    char entrada[200];
+    fgets(entrada,200,stdin);
+
+    if (entrada[0]=='-'){
+        printf("Error: numero negativo!\n");
+        return;
+    }
+
+    if (func_siete_esta_bien(entrada, &n)==true){
+        if (n==0){
+            printf("Error: N no puede ser 0!\n");
+            return;
+        } else {
+        
+            char *resultado = func_siete_base(n);
+
+             if (resultado == NULL) {
+            printf("Error: no se pudo reservar la memoria!\n");
+            return;
+            }
+
+            printf("%s\n", resultado);
+            free(resultado);
+        } 
+    }
+      printf("\n Presione ENTER para volver al menu\n");
+      getchar();
+}
 
 void ejercicio8() {
   char num_ingresado[50];

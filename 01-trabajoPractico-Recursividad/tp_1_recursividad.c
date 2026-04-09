@@ -7,6 +7,61 @@
 
 // EJERCICIO 1
 
+void func_pasar_a_mayusculas(char cadena[]) {
+    int i = 0;
+
+    while (cadena[i] != '\0') {
+        if (cadena[i] >= 'a' && cadena[i] <= 'z') {
+            cadena[i] = cadena[i] - ('a' - 'A');
+        }
+        i++;
+    }
+}
+
+bool func_uno_adicional(char * cadena) {
+    int longitud = strlen(cadena);
+
+    if (longitud <= 1) {
+        return true;
+    }
+
+    if (cadena[0] != cadena[longitud - 1]) {
+        return false;
+    }
+
+    cadena[longitud - 1] = '\0';
+    return func_uno_adicional(cadena + 1);
+}
+
+bool func_uno_base (){
+    printf("Vamos a ver si una palabra es un palidromo. Ingrese la palabra:\n");
+    char cadena2[200];
+    fgets(cadena2,200,stdin);
+
+    if (cadena2[0]=='\n'){
+        printf ("Error: entrada vacia!\n");
+        return false;
+    }
+    
+    int long_cadena2=strlen(cadena2)-1;
+    cadena2[long_cadena2] = '\0';
+
+    char cadena[long_cadena2+1];
+    for (int i=0; i<long_cadena2;i++){
+        cadena[i]=cadena2[i];
+    }
+    cadena[long_cadena2] = '\0';
+    bool resultado=false;
+
+    func_pasar_a_mayusculas(cadena);
+
+    if (func_uno_adicional(cadena)==true){
+        resultado=true;
+    }
+
+    return resultado;
+    }
+
 // EJERCICIO 2
 
 int producto(int m, int n) {
@@ -168,6 +223,98 @@ char *ondaDigital (char seniales[]) {
     return onda;
 }
 // EJERCICIO 7
+
+void func_siete_mostrar(char salida[], char salida2[], char salida_final[]) {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    while (salida2[i] != '0') {
+        salida_final[k] = salida2[i];
+        i++;
+        k++;
+    }
+
+    while (salida[j] != '!') {
+        salida_final[k] = salida[j];
+        j++;
+        k++;
+    }
+
+    salida_final[k] = '\0';
+}
+
+void func_siete_adicional (int n, char salida[], char salida2[]){
+
+    salida[5+(n-1)*3]='.';
+    salida[5+((n-1)*3)+1]='-';
+    salida[5+((n-1)*3)+2]=')';
+
+    salida2[0+(n-1)*3]='(';
+    salida2[1+(n-1)*3]='-';
+    salida2[2+(n-1)*3]='.';
+
+    if (n>1){
+        func_siete_adicional (n-1, salida, salida2);
+    }
+
+    return;
+}
+
+char *func_siete_base(int n){
+    char salida[200];
+    char salida2[200];
+
+    int tam_salida3 = 6 * n;
+    char *salida3 = malloc(tam_salida3 * sizeof(char));
+
+    if (salida3 == NULL) {
+    return NULL;
+    }
+
+        for (int i=0; i<200; i++){
+            salida[i]='!';
+            salida2[i]='0';
+        }
+    
+    
+        salida[2]='.';
+        salida[3]='-';
+        salida[4]=')';
+        salida[1]='-';
+        salida[0]='(';
+
+        if (n>1){func_siete_adicional (n-1, salida, salida2);
+        }
+
+    func_siete_mostrar(salida, salida2, salida3);
+    return salida3;
+}
+
+bool func_siete_esta_bien(char entrada[], int * n){
+    int longuitud=strlen(entrada)-1;
+    char entrada2[longuitud];
+
+    for (int i=0; i<longuitud;i++){
+        entrada2[i]=entrada[i];
+    }
+
+    for (int i=0; i<longuitud;i++){
+        if ((entrada2[i]<'0')||(entrada2[i]>'9')){
+            printf ("Error: la entrada no es un numero correcto!\n");
+            return false;
+        }
+    }
+
+    int multiplo=1;
+
+    for (int i=longuitud-1; i!=-1;i--){
+        *n=*n+((entrada2[i]-'0')*multiplo);
+        multiplo=multiplo*10;
+    }
+    return true;
+}
+
 
 // EJERCICIO 8
 
