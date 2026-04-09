@@ -404,6 +404,57 @@ void ejercicio9() {
   getchar();
 };
 
-/*void ejercicio10() {
-  //
-};*/
+void ejercicio10() {
+    char ingresado[50];
+  int n, b;
+
+  // ingreso de N
+  while (1) {
+    printf("Ingrese el numero N: ");
+    fgets(ingresado, sizeof(ingresado), stdin);
+
+    if (numero_valido(ingresado) == 1) {
+      n = str_a_int(ingresado);
+      break;
+    } else {
+      printf("Numero invalido. Intente nuevamente.\n");
+    }
+  }
+
+  // ingreso de B
+  while (1) {
+    printf("Ingrese la bomba B: ");
+    fgets(ingresado, sizeof(ingresado), stdin);
+
+    if (numero_valido(ingresado) == 1) {
+      b = str_a_int(ingresado);
+
+      if (b <= 0) {
+        printf("La bomba debe ser mayor a 0.\n");
+        continue;
+      }
+
+      break;
+    } else {
+      printf("Numero invalido. Intente nuevamente.\n");
+    }
+  }
+
+  // llamar a la función
+  int *resultado = explosion(n, b);
+
+  // mostrar resultado
+  printf("\nResultado: [ ");
+  int i = 0;
+  while (resultado[i] != -1) {
+    printf("%d ", resultado[i]);
+    i++;
+  }
+  printf("]\n");
+
+  
+  free(resultado);
+
+  printf("\nPresione ENTER para volver al menu...\n");
+  getchar();
+};

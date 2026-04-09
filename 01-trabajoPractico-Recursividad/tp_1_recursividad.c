@@ -389,3 +389,44 @@ bool divisiblePor7(int n){
 }
 
 // EJERCICIO 10
+// parametros adicionales q necesito para la recursion pq no puedo modificar paorametro sde la del ejercicio
+void explosionAux(int n, int b, int **res, int *indice, int *capacidad){
+
+    // Caso base
+    if(n <= b){
+        
+        if(*indice >= *capacidad){
+            *capacidad *= 2;
+            *res = realloc(*res, (*capacidad) * sizeof(int));
+        }
+
+        (*res)[*indice] = n;
+        (*indice)++;
+        return;
+    }
+
+    // Recursión
+    int n1 = n / b;
+    int n2 = n - n1;
+
+    explosionAux(n1, b, res, indice, capacidad);
+    explosionAux(n2, b, res, indice, capacidad);
+}
+
+
+// la aux esta para solucionarrecurisvamente con mas paraemtros esta solo arma y devuelve
+int* explosion(int n, int b){
+
+    int capacidad = 10;
+    int indice = 0;
+
+    int *resultado = malloc(capacidad * sizeof(int));
+
+    explosionAux(n, b, &resultado, &indice, &capacidad);
+
+    // agregar -1 al final
+    resultado = realloc(resultado, (indice + 1) * sizeof(int));
+    resultado[indice] = -1;
+
+    return resultado;
+}
