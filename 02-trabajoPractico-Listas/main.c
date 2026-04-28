@@ -7,6 +7,15 @@
 #include "../libs/listas/headers/listas.h"
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 
+typedef struct Promedios {
+    float promedio_l1;
+    float promedio_l2;
+} Promedios;
+
+typedef struct Min_val {
+    int clave;
+    int pos;
+} Min_val;
 
 
 // menu
@@ -14,7 +23,7 @@ void mostrarMenu();
 void ingresarOpcion(char *ingresado, int *nro_elegido);
 
 // funciones inicializadoras
-void ejercicio2(char opcion);
+void ejercicio2();
 void ejercicio3();
 void ejercicio4();
 void ejercicio5();
@@ -63,23 +72,7 @@ int main(){
             case 2:
                 limpiarPantalla();
                 printf("-- 2. VALORES ENTRE LISTAS --\n");
-                printf("Seleccione un ejercicio:\n");
-                printf("a - Ver elementos de L1 que no estan en L2\n");
-                printf("b - Ver elementos de L2 que no estan en L1\n");
-                printf("c - Ver elementos comunes en ambas listas\n");
-                printf("d - Promedios de L1 y L2\n");
-                printf("e - Valor minimo y posicion ordinal de ambas listas\n");
-
-                char opcion;
-                do {
-                    printf("Ingrese una opcion (a, b, c, d o e): ");
-                    scanf(" %c", &opcion);
-                    opcion = tolower(opcion);
-                    if (opcion < 'a' || opcion > 'e') {
-                        printf("Opcion no valida. Intente nuevamente.\n");
-                    }
-                } while (opcion < 'a' || opcion > 'e');
-                ejercicio2(opcion);
+                ejercicio2();
                 break;
             case 3:
                 limpiarPantalla();
@@ -116,8 +109,7 @@ int main(){
 
 //--------------------------------------- LLAMADAS A FUNCIONES DEL TP
 
-void ejercicio2(char opcion){
-}
+
 void ejercicio3(){
 }
 void ejercicio4(){
