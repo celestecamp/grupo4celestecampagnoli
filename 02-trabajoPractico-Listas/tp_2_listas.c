@@ -241,5 +241,24 @@ Lista calcularRango(Lista list, double x, double y, double sumando) {
 
 // P6
 bool esSublista(Lista l1, Lista l2){
+    Iterador iterL2 = iterador(L2);
+
+    if(l_longitud(L2) > l_longitud(L1)) return false;
     
+    while(hay_siguiente(iterL2)){
+        bool contiene = false;
+    
+        TipoElemento elementoActualL2 = siguiente(iterL2);
+        Iterador iterL1 = iterador(L1);
+    
+        while(hay_siguiente(iterL1) && !contiene){
+            TipoElemento elementoActualL1 = siguiente(iterL1);
+    
+            if(elementoActualL1->clave == elementoActualL2->clave){
+                contiene = true;
+            }
+        }
+        if(!contiene) return false;
+    }
+    return true;
 }
