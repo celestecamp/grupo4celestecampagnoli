@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "../libs/listas/headers/listas.h"
 #include "tp_2_listas.h"
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
@@ -163,16 +164,79 @@ int CompararListas(Lista l1, Lista L2){
 }
 
 // P5
-void hacerPolinomio(Lista list){
+void hacerPolinomio(Lista list) {
+    if (l_es_llena(list)) {
+        printf("Lista llena!\n");
+        return;
+    }
+    
+    int i = 0, exp;
+    float* coef = malloc(sizeof(float));    
 
+    printf("[Ingreso del polinomio a evaluar]\n");
+    while (!l_es_llena(list)) {
+        printf("\n- Termino #%i:", i+1);
+        do {
+            printf("\nExponente (>= 0) [-1 para FINALIZAR]: "); scanf("%i", &exp);
+            if (exp < -1) {
+                printf("Invalido, vuelva a intentar. Debe ser un numero mayor o igual a cero!\n");
+            }
+            else if (exp == -1) break;
+            else {
+                printf("Coeficiente: "); scanf("%f", coef);
+                l_agregar(list, te_crear_con_valor(exp, coef));
+                break;
+            }
+        } while (1);
+        
+        if (exp == -1) break;
+
+        coef = malloc(sizeof(float));
+        i++;
+    }
+
+    printf("POLINOMIO GUARDADO.\n");
 }
 
-float evaluarPoliomio(Lista list, float x){
+float evaluarPoliomio(Lista list, float x) {
+    if (l_es_vacia(list)) {
+        printf("Polinomio invalido.\n");
+        return false;
+    }
 
+    float resultado = 0, exp; float coef; TipoElemento elem;
+    Iterador ite = iterador(list);
+    while (hay_siguiente(ite)) {
+        elem = siguiente(ite);
+        exp = elem->clave;
+        coef = *(float*)elem->valor;
+
+        resultado += (coef * pow(x, exp));
+    }
+
+    return resultado;
 }
 
-Lista calcularRango(Lista list, double x, double y, double sumando){
+Lista calcularRango(Lista list, double x, double y, double sumando) { 
+    Lista l = l_crear();
 
+    if (l_es_vacia(list)) return l;
+
+    TipoElemento elem;
+    
+    float i = x;
+    while (i <= y) {
+        float* res = malloc(sizeof(float));
+        *res =  evaluarPoliomio(list, i);
+        printf("F(%.2lf) = %.2lf\n", i, *res); // muestro el resultado en pantalla
+
+        elem = te_crear_con_valor(0, res);
+        l_agregar(l, elem);
+
+        i += sumando;
+    }
+
+    return l;
 }
 
 // P6

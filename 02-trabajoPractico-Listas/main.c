@@ -240,7 +240,29 @@ void ejercicio3(){
 }
 void ejercicio4(){
 }
+
 void ejercicio5(){
+    Lista l = l_crear();
+    hacerPolinomio(l);
+
+    fflush(stdin);
+    limpiarPantalla();
+
+    if (l_es_vacia(l)) printf("LISTA VACIA\n");
+    else {
+        float min, max, dif;
+        printf("RANGO A EVALUAR\n");
+        printf("Minimo: "); scanf("%f", &min);
+        printf("Maximo: "); scanf("%f", &max);
+        printf("Incrementando de a: "); scanf("%f", &dif);
+    
+        printf("\n");
+        Lista resultado = calcularRango(l, min, max, dif);
+    }
+
+    printf("\nPresione ENTER para volver al menu\n");
+    getchar();
 }
+
 void ejercicio6(){
 }
