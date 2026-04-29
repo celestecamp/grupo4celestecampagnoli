@@ -240,6 +240,9 @@ Lista calcularRango(Lista list, double x, double y, double sumando) {
 }
 
 // P6
+
+
+//LA COMPLEJIDAD ALGORITMICA SE ENCUENTRA EN EL README.md DE ESTE DIRECTORIO
 bool esSublista(Lista l1, Lista l2){
     Iterador iterL2 = iterador(L2);
 
