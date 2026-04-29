@@ -54,4 +54,12 @@ Lista calcularRango(Lista list, double x, double y, double sumando);
 // P6
 bool esSublista(Lista l1, Lista l2);
 
+
+
+// FUNCIONES AGREGADAS
+Lista rellenarLista_manual(int elementos);
+Lista rellenarLista_auto(int elementos);
+void vaciarLista(Lista lista);
+
+
 #endif // TP_2_Listas

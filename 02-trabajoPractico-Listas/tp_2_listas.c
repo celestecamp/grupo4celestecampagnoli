@@ -1,312 +1,181 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <time.h>
+#include "../libs/listas/headers/listas.h"
 #include "tp_2_listas.h"
+#include "../libs/tipoElemento/headers/tipo_elemento.h"
+#include "../libs/validaciones/headers/validaciones.h"  
 
-typedef struct Promedios {
-    float promedio_l1;
-    float promedio_l2;
-} Promedios;
+// FUNCION PARA LLENAR Y BORRAR LISTAS 
 
-typedef struct Min_val {
-    int clave;
-    int pos;
-} Min_val;
-
-Lista ejercicio2_a(Lista l1, Lista l2);
-Lista ejercicio2_b(Lista l1, Lista l2);
-Lista ejercicio2_c(Lista l1, Lista l2);
-Promedios ejercicio2_d(Lista l1, Lista l2);
-Min_val ejercicio2_e(Lista l1, Lista l2);
-void esperar_enter();
-
-void esperar_enter() {
-#ifdef _WIN32
-    system("pause");
-#else
-    system("read -p 'Presione ENTER para continuar...' x");
-#endif
-}
-
-int leer_entero_positivo() {
-    printf("Ingresa un numero positivo:\n");
-    int n;
-    int leidos;
-    while (1) {
-        leidos = scanf("%d", &n);
-        if (leidos == 1 && n > 0) {
-            return n;
-        }
-        printf("Hay que ingresar un numero mas de 0!\n");
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF) {
-        }
+Lista rellenarLista_manual(int elementos){
+    if (elementos == 0){
+        return l_crear();
     }
-}
-
-void elegir_en_ej2(Lista l1, Lista l2){
-    printf("Que parte de ejercicio 2 vamos a ver? Ingresa un numero de 1 a 5,\ndonde 1 es a, 2 es b, etc.\n");
-    printf("Si queres salir, ingresa cualqiera otro valor\n");
-    int seleccion;
-    scanf("%d",&seleccion);
-    switch (seleccion)
-    {
-    case 1:{
-        Lista respuesta1=l_crear();
-        respuesta1=ejercicio2_a(l1, l2);
-        printf("Vamos a ver los valores de L1 que no estan en L2:\n");
-        Iterador it1 = iterador(respuesta1);
-        while (hay_siguiente(it1)) {
-            TipoElemento e = siguiente(it1);
-            printf("%d\n", e->clave);
-        }
-        esperar_enter();
-        elegir_en_ej2(l1, l2);
-        break;}
-    case 2: {
-        Lista respuesta2=l_crear();
-        respuesta2=ejercicio2_b(l1, l2);
-        printf("Vamos a ver los valores de L2 que no estan en L1:\n");
-        Iterador it2 = iterador(respuesta2);
-        while (hay_siguiente(it2)) {
-            TipoElemento e2 = siguiente(it2);
-            printf("%d\n", e2->clave);
-        }
-        esperar_enter();
-        elegir_en_ej2(l1, l2);
-        break;}
-    case 3:{
-        Lista respuesta3=l_crear();
-        respuesta3=ejercicio2_c(l1, l2);
-        printf("Vamos a ver los valores comunes para ambas listas:\n");
-        Iterador it3 = iterador(respuesta3);
-        while (hay_siguiente(it3)) {
-            TipoElemento e3 = siguiente(it3);
-            printf("%d\n", e3->clave);
-        }
-        esperar_enter();
-        elegir_en_ej2(l1, l2);
-        break;}
-    case 4:{
-        Promedios respuesta4=ejercicio2_d(l1, l2);
-        printf("Vamos a ver los promedios de ambas listas:\n");
-        printf("El promedio de L1 es %f\n",respuesta4.promedio_l1);
-        esperar_enter();
-        printf("El promedio de L2 es %f\n",respuesta4.promedio_l2);
-        esperar_enter();
-        elegir_en_ej2(l1, l2);
-        break;}
-    case 5:{
-        Min_val respuesta5=ejercicio2_e(l1, l2);
-        printf("Vamos a ver el valor minimo de ambas listas y su posicion:\n");
-        printf("El valor minimo es %d\n",respuesta5.clave);
-        esperar_enter();
-        printf("Su posicion es %d\n",respuesta5.pos);
-        esperar_enter();
-        elegir_en_ej2(l1, l2);
-        break;}
-    default:{
-        printf("No elegiste ningun valor correcto. Chau!\n");
-        break;}
-    }   
-}
-
-void ej2_cargar_mis_valores(){
-    printf("Vamos a cargar listas con tus valores\n");
-    int tamanio1 = leer_entero_positivo();
-    printf("Tamanio para L1 cargado\n");
-    esperar_enter();
-    printf("Ahora ingresa tamanio para L2\n");
-    int tamanio2 = leer_entero_positivo();
-    printf("Tamanio para L2 cargado\n");
-    Lista l1=l_crear();
-    Lista l2=l_crear();
-    esperar_enter();
-    printf("Vamos a cargar valores para L1\n");
-    int valor_agregado;
-    for (int i=0; i<tamanio1; i++){
-        valor_agregado = leer_entero_positivo();
-        l_agregar(l1, te_crear(valor_agregado));
-    }
-    printf("Valores para L1 fueron cargados\n");
-    esperar_enter();
-    printf("Ahora vamos a cargar valores para L2\n");
-    for (int i=0; i<tamanio2; i++){
-        valor_agregado = leer_entero_positivo();
-        l_agregar(l2, te_crear(valor_agregado));
-    }
-    printf("Todos los valores fueron cargados\n");
-    esperar_enter();
-    elegir_en_ej2(l1, l2);
-}
-
-void ej2_cargar_al_azar(){
-    srand(time(NULL)); 
-    int tamanio1 = 1 + rand() % (10 - 1 + 1);
-    int tamanio2 = 1 + rand() % (10 - 1 + 1);
-    Lista l1=l_crear();
-    Lista l2=l_crear();
-    int valor_para_agregar;
-    for (int i=0; i<tamanio1; i++){
-        valor_para_agregar=1 + rand() % (99 - 1 + 1);
-        l_agregar(l1, te_crear(valor_para_agregar));
-    }
-    for (int i=0; i<tamanio2; i++){
-        valor_para_agregar=1 + rand() % (99 - 1 + 1);
-        l_agregar(l2, te_crear(valor_para_agregar));
-    }
-    printf("Tengo valores cargados\n");
-    esperar_enter();
-    printf("Vamos a ver los valores en L1:\n");
-    Iterador it1 = iterador(l1);
-        while (hay_siguiente(it1)) {
-            TipoElemento e = siguiente(it1);
-            printf("%d\n", e->clave);
-        }
-    esperar_enter();
-    printf("\nAhora vamos a ver los valores en L2:\n");
-    Iterador it2 = iterador(l2);
-        while (hay_siguiente(it2)) {
-            TipoElemento e2 = siguiente(it2);
-            printf("%d\n", e2->clave);
-        }
-    esperar_enter();
-    elegir_en_ej2(l1, l2);
-}
-
-void ejercicio2(){
-    printf("\nVamos a iniciar el ejercicio 2\n");
-    printf("Queres cargar valores al azar?\nIngresa 1 para SI, el resto para NO\n");
-    int al_azar;
-    scanf("%d", &al_azar);
-    if (al_azar==1){
-        printf("Entonces, vamos a cargar los valores al azar\n");
-        esperar_enter();
-        ej2_cargar_al_azar();
-    } else {
-        printf("Entonces, vas a cargas tus valores\n");
-        esperar_enter();
-        ej2_cargar_mis_valores();
-    }
-}
-
-Min_val ejercicio2_e (Lista l1, Lista l2){
-    Min_val respuesta;
-    int candidato_l1;
-    int valor_comprobado;
-    int pos1=1;
-    Iterador it = iterador(l1);
-    TipoElemento e = siguiente(it);
-    candidato_l1=e->clave;
-    valor_comprobado=e->clave;
-    int pos_actual=1;
-        while (hay_siguiente(it)) {
-            pos_actual++;
-            TipoElemento e = siguiente(it);
-            valor_comprobado=e->clave;
-            if (valor_comprobado<candidato_l1){
-                candidato_l1=valor_comprobado;
-                pos1=pos_actual;
+    printf("Ingrese las claves que desea para sus TipoElementos: \n");
+    Lista l = l_crear();
+    TipoElemento elemento;
+    int i = 0;
+    while(i<elementos && !l_es_llena(l)){
+        int clave = 0;
+        int valido = 0;
+        while(valido != 1){
+            printf("Clave del elemento %d: ", i+1);
+            valido = scanf("%d", &clave);
+            if (valido != 1) {
+                printf("Clave ingresada incorrecta. Solo numeros enteros. Ingrese nuevamente la clave ");
+                limpiarbuffer();
+                printf("\n");
             }
         }
-    int candidato_l2;
-    int valor_comprobado2;
-    int pos2=1;
-    Iterador it2 = iterador(l2);
-    TipoElemento e2 = siguiente(it2);
-    candidato_l2=e2->clave;
-    valor_comprobado2=e2->clave;
-    pos_actual=1;
-        while (hay_siguiente(it2)) {
-            pos_actual++;
-            TipoElemento e2 = siguiente(it2);
-            valor_comprobado2=e2->clave;
-            if (valor_comprobado2<candidato_l2){
-                candidato_l2=valor_comprobado2;
-                pos2=pos_actual;
-            }
-        }
-    int respuesta_final;
-    int pos_final;
-    if (candidato_l1<candidato_l2){
-        respuesta_final=candidato_l1;
-        pos_final=pos1;
-    } else {
-        respuesta_final=candidato_l2;
-        pos_final=pos2;
+        elemento = te_crear(clave);
+        i++;
+        l_agregar(l,elemento);
     }
-    respuesta.clave=respuesta_final;
-    respuesta.pos=pos_final;
-    return respuesta;
+    return l; 
 }
 
-Promedios ejercicio2_d (Lista l1, Lista l2){
-    float p1=0;
-    float p2=0;
-    Promedios promedios_respuesta;
-    Iterador it = iterador(l1);
-        while (hay_siguiente(it)) {
-            TipoElemento e = siguiente(it);
-            p1=p1+e->clave;
-        }
-    p1=p1/(l_longitud(l1));
-    Iterador it2 = iterador(l2);
-        while (hay_siguiente(it2)) {
-            TipoElemento e2 = siguiente(it2);
-            p2=p2+e2->clave;
-        }
-    p2=p2/(l_longitud(l2));
-    promedios_respuesta.promedio_l1=p1;
-    promedios_respuesta.promedio_l2=p2;
-    return promedios_respuesta;
-} 
-
-Lista ejercicio2_c(Lista l1, Lista l2){
-    Lista lista_respuesta = l_crear();
-    if (l_longitud(l1)<=l_longitud(l2)){
-
-        Iterador it = iterador(l1);
-        while (hay_siguiente(it)) {
-            TipoElemento e = siguiente(it);
-            if ((l_buscar(l2, e->clave)!=NULL)&&(l_buscar(lista_respuesta, e->clave)==NULL)){
-                l_agregar(lista_respuesta, te_crear(e->clave));
-        }
+Lista rellenarLista_auto(int elementos){
+    if (elementos == 0){
+        return l_crear();
     }
-    } else {
+    Lista l = l_crear();
+    TipoElemento elemento;
+    int i = 0;
+    while(i<elementos && !l_es_llena(l)){
 
-        Iterador it = iterador(l2);
-        while (hay_siguiente(it)) {
-            TipoElemento e = siguiente(it);
-            if ((l_buscar(l1, e->clave)!=NULL)&&(l_buscar(lista_respuesta, e->clave) ==NULL)){
-                l_agregar(lista_respuesta, te_crear(e->clave));
-        }
+        int clave = rand() % 100; // Genera un número aleatorio entre 0 y 99
+        elemento = te_crear(clave);
+        i++;
+        l_agregar(l,elemento);
     }
-    }
-    return lista_respuesta;
+    return l; 
 }
 
-Lista ejercicio2_b(Lista l1, Lista l2){
-    Lista lista_respuesta = l_crear();
-    Iterador it = iterador(l2);
-    while (hay_siguiente(it)) {
-        TipoElemento e = siguiente(it);
-        if (l_buscar(l1, e->clave)==NULL){
-            l_agregar(lista_respuesta, te_crear(e->clave));
+void vaciarLista(Lista lista) {
+    while (!l_es_vacia(lista)) {
+        TipoElemento te = l_recuperar(lista, 1);
+        if (te != NULL) {
+            free(te);               // libera el TipoElemento creado con te_crear
         }
+        l_eliminar(lista, 1);       // SACA el primer elemento de la lista
     }
-    return lista_respuesta;
 }
 
-Lista ejercicio2_a(Lista l1, Lista l2){
-    Lista lista_respuesta = l_crear();
-    Iterador it = iterador(l1);
-    while (hay_siguiente(it)) {
-        TipoElemento e = siguiente(it);
-        if (l_buscar(l2, e->clave)==NULL){
-            l_agregar(lista_respuesta, te_crear(e->clave));
+// ---------------------------------------------------------------- FUNCIONES DEL TP ----------------------------------------------------------------
+
+// P2 a y b
+Lista verElementosQueNoSeRepiten(Lista l1, Lista l2){
+    Lista nuevaLista = l_crear();
+    TipoElemento Te_nuevo;
+    Iterador ite = iterador(l1);
+
+    while(hay_siguiente(ite)){
+        Te_nuevo = siguiente(ite);
+        if(l_buscar(l2, Te_nuevo->clave) == NULL){
+            l_agregar(nuevaLista, Te_nuevo);
         }
     }
-    return lista_respuesta;
+    return nuevaLista;
+}
+
+// Punto 2 C
+Lista verElementosRepetidos(Lista l1, Lista l2){
+    Lista nuevaLista = l_crear();
+    TipoElemento Te_nuevo;
+    Iterador ite = iterador(l1);
+
+    while(hay_siguiente(ite)){
+        Te_nuevo = siguiente(ite);
+        if(l_buscar(l2, Te_nuevo->clave) != NULL){
+            l_agregar(nuevaLista, Te_nuevo);
+        }
+    }
+    return nuevaLista;
+}
+
+// Punto 2 D
+float promedio(Lista l1){
+    if (l_es_vacia(l1)){
+        return 0;
+    }
+    int suma = 0;
+    int cantidad = l_longitud(l1);
+    TipoElemento Te_nuevo;
+    Iterador ite = iterador(l1);
+
+    while(hay_siguiente(ite)){
+        Te_nuevo = siguiente(ite);
+        suma += Te_nuevo->clave;
+    }
+    return (float)suma/cantidad;
+
+}
+
+// Punto 2 E
+ResultadoValorMinimo valorMinimo(Lista l1, Lista l2){
+    ResultadoValorMinimo resultado;
+
+    TipoElemento Te_nuevo = l_recuperar(l1, 1);
+    int clave_minima = Te_nuevo->clave;
+    int posicion_minima = 1;
+    int pos_actual=0;
+    Iterador ite = iterador(l1);
+    while(hay_siguiente(ite)){
+        pos_actual++;
+        Te_nuevo = siguiente(ite);
+        if (Te_nuevo->clave < clave_minima){
+            clave_minima = Te_nuevo->clave;
+            posicion_minima = pos_actual;
+        }
+    }
+    resultado.pos = posicion_minima;
+    resultado.valor = clave_minima;
+
+    TipoElemento Te_nuevo_2 = l_recuperar(l2, 1);
+    int clave_minima_2 = Te_nuevo_2->clave;
+    posicion_minima = 1;
+    pos_actual=0;
+    Iterador ite_2 = iterador(l2);
+    while(hay_siguiente(ite_2)){
+        pos_actual++;
+        Te_nuevo_2 = siguiente(ite_2);
+        if (Te_nuevo_2->clave < clave_minima_2){
+            clave_minima_2 = Te_nuevo_2->clave;
+            posicion_minima = pos_actual;
+        }
+    }
+    resultado.pos_2 = posicion_minima;
+    resultado.valor_2 = clave_minima_2;
+    return resultado;
+}
+
+// P3
+ResultadosMul multiplo(Lista l1, Lista l2){
+
+}
+
+// P4
+int CompararListas(Lista l1, Lista L2){
+
+}
+
+// P5
+void hacerPolinomio(Lista list){
+
+}
+
+float evaluarPoliomio(Lista list, float x){
+
+}
+
+Lista calcularRango(Lista list, double x, double y, double sumando){
+
+}
+
+// P6
+bool esSublista(Lista l1, Lista l2){
+    
 }

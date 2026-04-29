@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "validaciones.h"
+#include "..\headers\validaciones.h"
 
 int numero_valido(const char *str) {
     int i = 0;
@@ -66,21 +66,21 @@ void limpiarPantalla() {
 char * ingresarString(){
     char *cadena;
     int cantidadInicial = 100;
- 
+
     cadena = (char*) malloc(cantidadInicial * sizeof(char));
- 
+
     if (cadena == NULL) {
-       printf("Error de asignacion de memoria");
+        printf("Error de asignacion de memoria");
     }
- 
+
     printf("Ingrese una cadena: ");
     fgets(cadena , cantidadInicial , stdin);
- 
+
     size_t longitud = strlen(cadena);
     if (longitud > 0 && cadena[longitud - 1] == '\n') {
         cadena[longitud - 1] = '\0';
     }
- 
+
     return cadena;
 }
 
@@ -114,4 +114,37 @@ char *int_to_char(int num){
     }
 
     return s;
+}
+
+
+bool estaEntre(int a, int b, int x) {
+    if ((x >= a && x <= b) || (x >= b && x <= a)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void limpiarbuffer(){
+    int c;
+    while((c = getchar()) != '\n' && c != EOF) {}
+}
+
+int leerEnteroEnRango(int min, int max) {
+    int valor;
+    int leido;
+
+    do {
+        printf("\nIngrese un numero entre %d y %d: ", min, max);
+
+        leido = scanf("%d", &valor);
+        limpiarbuffer();
+
+        if (leido != 1 || valor < min || valor > max) {
+            printf("Valor no valido. Intente nuevamente.\n");
+        }
+
+    } while (leido != 1 || valor < min || valor > max);
+
+    return valor;
 }

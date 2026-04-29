@@ -2,21 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
+#include <ctype.h>
 #include "tp_2_listas.h"
-#include "../libs/validaciones/headers/validaciones.h"
 #include "../libs/listas/headers/listas.h"
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
-
-typedef struct Promedios {
-    float promedio_l1;
-    float promedio_l2;
-} Promedios;
-
-typedef struct Min_val {
-    int clave;
-    int pos;
-} Min_val;
-
+#include "../libs/validaciones/headers/validaciones.h"
 
 // menu
 void mostrarMenu();
@@ -65,13 +56,14 @@ void ingresarOpcion(char *ingresado, int *nro_elegido) {
 int main(){
     char ingresado[10];
     int nro_elegido;
+    srand(time(NULL));
 
     ingresarOpcion(ingresado, &nro_elegido);
+
     while (nro_elegido != 0) {
         switch (nro_elegido) {
             case 2:
                 limpiarPantalla();
-                printf("-- 2. VALORES ENTRE LISTAS --\n");
                 ejercicio2();
                 break;
             case 3:
@@ -109,7 +101,141 @@ int main(){
 
 //--------------------------------------- LLAMADAS A FUNCIONES DEL TP
 
+void ejercicio2(){
+    Lista lista1, lista2;
+    Lista nueva_lista = l_crear();
+    char opcion = ' ';
 
+    //-----------------------------Llenar las listas una sola vez al entrar -----------------------------
+    printf("\n\n-- 2. VALORES ENTRE LISTAS --\n");
+    printf("Si desea llenar las listas manualmente presione '1', de lo contrario presione '0': ");
+    int valor = leerEnteroEnRango(0, 1);
+    
+
+    if (valor == 1) { // Llenar las listas manualmente
+        printf("\n\nPor favor ingrese la cantidad de elementos de la lista:\n");
+        int n_elementos = leerEnteroEnRango(0, TAMANIO_MAXIMO);
+        lista1 = rellenarLista_manual(n_elementos);
+        printf("\n");
+        l_mostrar(lista1);
+        printf("\nLista 1 llena! Ahora ingrese la cantidad de elementos de la lista 2:\n");
+        n_elementos = leerEnteroEnRango(0, TAMANIO_MAXIMO);
+        lista2 = rellenarLista_manual(n_elementos);
+        printf("\n");
+        l_mostrar(lista2);
+        printf("\nLista 2 llena!\n");
+        printf("\n Presione ENTER para continuar\n");
+        getchar();
+    }
+    else { // Llenar las listas automaticamente
+        printf("\n\nPor favor ingrese la cantidad de elementos de la lista:\n");
+        int n_elementos = leerEnteroEnRango(0, TAMANIO_MAXIMO);
+        lista1 = rellenarLista_auto(n_elementos);
+        printf("\n");
+        l_mostrar(lista1);
+        printf("\nLista 1 llena! Ahora ingrese la cantidad de elementos de la lista 2:\n");
+        n_elementos = leerEnteroEnRango(0, TAMANIO_MAXIMO);
+        lista2 = rellenarLista_auto(n_elementos);
+        printf("\n");
+        l_mostrar(lista2);
+        printf("\nLista 2 llena!\n");
+        printf("\n Presione ENTER para continuar\n");
+        getchar();
+    }
+
+    while (opcion != 'f') {
+        printf("\n\nSeleccione un ejercicio:\n");
+        printf("a - Ver elementos de L1 que no estan en L2\n");
+        printf("b - Ver elementos de L2 que no estan en L1\n");
+        printf("c - Ver elementos comunes en ambas listas\n");
+        printf("d - Promedios de L1 y L2\n");
+        printf("e - Valor minimo y posicion ordinal de ambas listas\n");
+        printf("f - Volver al menu principal\n");
+
+        do {
+            printf("\nIngrese una opcion (a, b, c, d o e) o f para salir: ");
+            scanf(" %c", &opcion);
+            opcion = tolower(opcion);
+            limpiarbuffer();
+            if (opcion < 'a' || opcion > 'f') {
+                printf("\nOpcion no valida. Intente nuevamente.\n");
+            }
+        } while (opcion < 'a' || opcion > 'f');
+
+        switch (opcion) {
+        case 'a':
+                vaciarLista(nueva_lista);
+                nueva_lista = verElementosQueNoSeRepiten(lista1, lista2);
+                if (nueva_lista!= NULL){
+                    printf("\nElementos de L1 que no estan en L2:\n");
+                    l_mostrar(nueva_lista);
+                        printf("\n Presione ENTER para continuar\n");
+                        getchar();
+                }
+                else {
+                    printf("No hay elementos de L1 que no esten en L2.\n");
+                }
+                break;
+        case 'b':                            
+                vaciarLista(nueva_lista);
+                nueva_lista = verElementosQueNoSeRepiten(lista2, lista1);
+                if (nueva_lista!= NULL){
+                    printf("\nElementos de L2 que no estan en L1:\n");
+                    l_mostrar(nueva_lista);
+                        printf("\n Presione ENTER para continuar\n");
+                        getchar();
+                }
+                else {
+                    printf("No hay elementos de L2 que no esten en L1.\n");
+                }
+                break;
+        case 'c':
+                vaciarLista(nueva_lista);
+                nueva_lista = verElementosRepetidos(lista1, lista2);
+                if (nueva_lista!= NULL){
+                    printf("\nElementos comunes en ambas listas:\n");
+                    l_mostrar(nueva_lista);
+                        printf("\n Presione ENTER para continuar\n");
+                        getchar();
+                }
+                else {
+                    printf("No hay elementos comunes en ambas listas.\n");
+                }
+                break;
+        case 'd':
+                float promedio1 = promedio(lista1);
+                float promedio2 = promedio(lista2);
+                printf("\nPromedio de L1: %.3f\n", promedio1);
+                printf("Promedio de L2: %.3f\n", promedio2);
+                printf("\n Presione ENTER para continuar\n");
+                getchar();
+                break;
+        case 'e':
+                if (l_es_vacia(lista1) || l_es_vacia(lista2)){
+                    printf("\nNo se puede calcular el valor minimo de una lista vacia.\n");
+                    printf("\n Presione ENTER para continuar\n");
+                    getchar();
+                    break;
+                }
+                ResultadoValorMinimo resultado = valorMinimo(lista1, lista2);
+                printf("\nValor minimo de L1: %d en la posicion %d\n", resultado.valor, resultado.pos);
+                printf("Valor minimo de L2: %d en la posicion %d\n", resultado.valor_2, resultado.pos_2);
+
+                
+                printf("\n Presione ENTER para continuar\n");
+                getchar();
+                break;
+        default:
+            printf("Volviendo al menu principal.\n");
+            break;
+        }
+    }
+
+    vaciarLista(lista1);
+    vaciarLista(lista2);
+    vaciarLista(nueva_lista);
+
+}
 void ejercicio3(){
 }
 void ejercicio4(){
