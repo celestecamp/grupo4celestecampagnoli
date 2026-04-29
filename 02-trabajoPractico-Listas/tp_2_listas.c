@@ -199,8 +199,35 @@ ResultadosMul multiplo(Lista l1, Lista l2) {
 }
 
 // P4
-int CompararListas(Lista l1, Lista L2){
+int CompararListas(Lista l1, Lista l2){
+    int contadorL1 = 0;
+    int contadorL2 = 0;
+    
+    
+    int len1 = l_longitud(l1);
+    int len2 = l_longitud(l2);
+    int minLen = (len1 < len2) ? len1 : len2;
 
+
+    for (int i = 1; i <= minLen; i++) {
+        TipoElemento e1 = l_recuperar(l1, i);
+        TipoElemento e2 = l_recuperar(l2, i);
+
+        if (e1->clave > e2->clave) {
+            contadorL1++;
+        } else if (e2->clave > e1->clave) {
+            contadorL2++;
+        }
+    }
+
+
+    if (contadorL1 > contadorL2) {
+        return 1; // L1 > L2
+    } else if (contadorL2 > contadorL1) {
+        return 2; // L2 > L1
+    } else {
+        return 0; // L1 = L2
+    }
 }
 
 // P5

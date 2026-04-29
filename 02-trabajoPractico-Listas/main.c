@@ -284,6 +284,53 @@ void ejercicio3(){
 }
 
 void ejercicio4(){
+    Lista lista1, lista2;
+    int resultado;
+
+    printf("\n\n-- 4. COMPARAR LISTAS (MAYOR, IGUAL O MENOR) --\n");
+    
+
+    printf("Si desea llenar las listas manualmente presione '1', de lo contrario presione '0' (Auto): ");
+    int modo = leerEnteroEnRango(0, 1);
+
+    if (modo == 1) {
+        printf("\nIngrese cantidad de elementos para la Lista 1: ");
+        int n1 = leerEnteroEnRango(0, TAMANIO_MAXIMO);
+        lista1 = rellenarLista_manual(n1);
+        
+        printf("\nIngrese cantidad de elementos para la Lista 2: ");
+        int n2 = leerEnteroEnRango(0, TAMANIO_MAXIMO);
+        lista2 = rellenarLista_manual(n2);
+    } else {
+        printf("\nIngrese cantidad de elementos para las listas: ");
+        int n = leerEnteroEnRango(0, TAMANIO_MAXIMO);
+        lista1 = rellenarLista_auto(n);
+        lista2 = rellenarLista_auto(n);
+    }
+
+
+    printf("\nLista 1: "); l_mostrar(lista1);
+    printf("Lista 2: "); l_mostrar(lista2);
+
+
+    resultado = CompararListas(lista1, lista2);
+
+    printf("\n>>> RESULTADO DE LA COMPARACION: %d\n", resultado);
+    
+    if (resultado == 1) {
+        printf("Interpretacion: La Lista 1 es MAYOR que la Lista 2.\n");
+    } else if (resultado == 2) {
+        printf("Interpretacion: La Lista 2 es MAYOR que la Lista 1.\n");
+    } else {
+        printf("Interpretacion: Ambas listas son IGUALES.\n");
+    }
+
+    printf("\nPresione ENTER para volver al menu principal\n");
+    getchar(); 
+    getchar(); 
+
+    vaciarLista(lista1);
+    vaciarLista(lista2);
 }
 
 void ejercicio5(){
