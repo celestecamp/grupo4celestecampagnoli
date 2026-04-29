@@ -154,8 +154,48 @@ ResultadoValorMinimo valorMinimo(Lista l1, Lista l2){
 }
 
 // P3
-ResultadosMul multiplo(Lista l1, Lista l2){
+ResultadosMul multiplo(Lista l1, Lista l2) {
+    ResultadosMul resultado;
+    resultado.esMultiplo = true;
+    resultado.escalar = true;
+    resultado.numEscalar = 0;
 
+    //vacio
+    if (l_longitud(l1) != l_longitud(l2) || l_es_vacia(l1)) {
+        resultado.esMultiplo = false;
+        resultado.escalar = false;
+        return resultado;
+    }
+
+    Iterador it1 = iterador(l1);
+    Iterador it2 = iterador(l2);
+    bool primer_elemento = true;
+    
+    while (hay_siguiente(it1) && hay_siguiente(it2) && resultado.esMultiplo) {
+        TipoElemento e1 = siguiente(it1);
+        TipoElemento e2 = siguiente(it2);
+        
+        if (e1->clave == 0 || e2->clave % e1->clave != 0) {
+            resultado.esMultiplo = false;
+            resultado.escalar = false;
+        } else {
+
+            int cociente = e2->clave / e1->clave;
+            
+            if (primer_elemento) {
+                resultado.numEscalar = cociente;
+                primer_elemento = false;
+            } else if (cociente != resultado.numEscalar) {
+                resultado.escalar = false;
+            }
+        }
+    }
+
+    if (!resultado.escalar) {
+        resultado.numEscalar = 0;
+    }
+    
+    return resultado;
 }
 
 // P4
@@ -244,15 +284,15 @@ Lista calcularRango(Lista list, double x, double y, double sumando) {
 
 //LA COMPLEJIDAD ALGORITMICA SE ENCUENTRA EN EL README.md DE ESTE DIRECTORIO
 bool esSublista(Lista l1, Lista l2){
-    Iterador iterL2 = iterador(L2);
+    Iterador iterL2 = iterador(l2);
 
-    if(l_longitud(L2) > l_longitud(L1)) return false;
+    if(l_longitud(l2) > l_longitud(l1)) return false;
     
     while(hay_siguiente(iterL2)){
         bool contiene = false;
     
         TipoElemento elementoActualL2 = siguiente(iterL2);
-        Iterador iterL1 = iterador(L1);
+        Iterador iterL1 = iterador(l1);
     
         while(hay_siguiente(iterL1) && !contiene){
             TipoElemento elementoActualL1 = siguiente(iterL1);

@@ -162,6 +162,7 @@ void ejercicio2(){
             }
         } while (opcion < 'a' || opcion > 'f');
 
+        float promedio1, promedio2;
         switch (opcion) {
         case 'a':
                 vaciarLista(nueva_lista);
@@ -203,8 +204,8 @@ void ejercicio2(){
                 }
                 break;
         case 'd':
-                float promedio1 = promedio(lista1);
-                float promedio2 = promedio(lista2);
+                promedio1 = promedio(lista1);
+                promedio2 = promedio(lista2);
                 printf("\nPromedio de L1: %.3f\n", promedio1);
                 printf("Promedio de L2: %.3f\n", promedio2);
                 printf("\n Presione ENTER para continuar\n");
@@ -236,8 +237,52 @@ void ejercicio2(){
     vaciarLista(nueva_lista);
 
 }
+
 void ejercicio3(){
+    Lista lista1, lista2;
+    int valor;
+
+    printf("\n-- 3. DETERMINAR SI L2 ES MULTIPLO DE L1 --\n");
+    printf("Si desea llenar las listas manualmente presione '1', de lo contrario presione '0' (azar): ");
+    
+    valor = leerEnteroEnRango(0, 1); 
+
+    printf("\nIngrese la cantidad de elementos para las listas (deben ser iguales): ");
+    int n_elementos = leerEnteroEnRango(1, TAMANIO_MAXIMO);
+
+    if (valor == 1) { 
+        printf("\n--- Cargando Lista 1 (Divisores) ---\n");
+        lista1 = rellenarLista_manual(n_elementos);
+        printf("\n--- Cargando Lista 2 (Dividendos) ---\n");
+        lista2 = rellenarLista_manual(n_elementos);
+    } 
+    else { 
+        lista1 = rellenarLista_auto(n_elementos);
+        lista2 = rellenarLista_auto(n_elementos);
+        printf("\nListas generadas automaticamente:");
+        printf("\nL1: "); l_mostrar(lista1);
+        printf("L2: "); l_mostrar(lista2);
+    }
+
+    ResultadosMul resultado = multiplo(lista1, lista2);
+
+    printf("\n--- RESULTADOS ---\n");
+    if (resultado.esMultiplo) {
+        printf("RESULTADO: L2 es multiplo de L1 posicion por posicion.\n");
+        if (resultado.escalar) {
+            printf("DETALLE: Existe un escalar constante. El escalar es: %d\n", resultado.numEscalar);
+        } else {
+            printf("DETALLE: Son multiplos pero NO tienen un escalar constante.\n");
+        }
+    } else {
+        printf("RESULTADO: L2 NO es multiplo de L1 (o hubo division por cero).\n");
+    }
+
+    printf("\nPresione ENTER para continuar\n");
+    getchar(); 
+    getchar();
 }
+
 void ejercicio4(){
 }
 
