@@ -265,4 +265,58 @@ void ejercicio5(){
 }
 
 void ejercicio6(){
+    Lista L1 = l_crear();
+    Lista L2 = l_crear();
+
+    bool seguirAgregando = true;
+    int index = 1;
+    int inputNumber;
+    char inputChar;
+
+    while(seguirAgregando){
+        printf("Ingrese el #%i elemento de la primer lista o 'n' para terminar: ", index);
+
+        if(scanf("%d", &inputNumber) > 0){
+            l_agregar(L1, te_crear(inputNumber));
+        }else{
+            if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
+                seguirAgregando = false;
+                printf("Terminando ingreso de la primer lista.\n");
+            }else{
+                printf("Debe ingresar un valor valido.\n");
+            }
+
+            fflush(stdin);
+        }
+        index++;
+    }
+
+    seguirAgregando = true;
+    index = 1;
+
+    while(seguirAgregando){
+        printf("Ingrese el #%i elemento de la segunda lista o 'n' para terminar: ", index);
+
+        if(scanf("%d", &inputNumber) > 0){
+            l_agregar(L2, te_crear(inputNumber));
+        }else{
+            if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
+                seguirAgregando = false;
+                printf("Terminando ingreso de la segunda lista.\n");
+            }else{
+                printf("Debe ingresar un valor valido.\n");
+            }
+            
+            fflush(stdin);
+        }
+        index++;
+    }
+
+    if(esSublista(L1, L2)){
+        printf("L2 es sublista de L1.\n");
+    }else{
+        printf("L2 no es sublista de L1.\n");
+    }
+
+    system("pause");
 }
