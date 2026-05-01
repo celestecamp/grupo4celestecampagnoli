@@ -199,15 +199,13 @@ ResultadosMul multiplo(Lista l1, Lista l2) {
 }
 
 // P4
-int CompararListas(Lista l1, Lista l2){
+int CompararListas(Lista l1, Lista l2){     // COMPLEJIDAD: O(n)
     int contadorL1 = 0;
     int contadorL2 = 0;
-    
     
     int len1 = l_longitud(l1);
     int len2 = l_longitud(l2);
     int minLen = (len1 < len2) ? len1 : len2;
-
 
     for (int i = 1; i <= minLen; i++) {
         TipoElemento e1 = l_recuperar(l1, i);
@@ -219,7 +217,6 @@ int CompararListas(Lista l1, Lista l2){
             contadorL2++;
         }
     }
-
 
     if (contadorL1 > contadorL2) {
         return 1; // L1 > L2
@@ -238,21 +235,39 @@ void hacerPolinomio(Lista list) {
     }
     
     int i = 0, exp;
-    float* coef = malloc(sizeof(float));    
+    float* coef = malloc(sizeof(float));
+    int valido;
 
     printf("[Ingreso del polinomio a evaluar]\n");
     while (!l_es_llena(list)) {
         printf("\n- Termino #%i:", i+1);
         do {
-            printf("\nExponente (>= 0) [-1 para FINALIZAR]: "); scanf("%i", &exp);
-            if (exp < -1) {
+            printf("\nExponente (>= 0) [-1 para FINALIZAR]: ");
+            valido = scanf("%i", &exp);
+
+            if (!valido) {
+                printf("INVALIDO! Debes ingresar un NUMERO ENTERO.\n");
+                while (getchar() != '\n');
+            }
+
+            else if (exp < -1) {
                 printf("Invalido, vuelva a intentar. Debe ser un numero mayor o igual a cero!\n");
             }
+            
             else if (exp == -1) break;
+            
             else {
-                printf("Coeficiente: "); scanf("%f", coef);
-                l_agregar(list, te_crear_con_valor(exp, coef));
-                break;
+                printf("Coeficiente: ");
+                valido = scanf("%f", coef);
+                
+                if (valido) {
+                    l_agregar(list, te_crear_con_valor(exp, coef));
+                    break;
+                }
+                else {
+                    printf("El coeficiente debe ser un NUMERO REAL.\n");
+                    while (getchar() != '\n');
+                }
             }
         } while (1);
         

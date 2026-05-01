@@ -343,10 +343,31 @@ void ejercicio5(){
     if (l_es_vacia(l)) printf("LISTA VACIA\n");
     else {
         float min, max, dif;
-        printf("RANGO A EVALUAR\n");
-        printf("Minimo: "); scanf("%f", &min);
-        printf("Maximo: "); scanf("%f", &max);
-        printf("Incrementando de a: "); scanf("%f", &dif);
+        int valido1, valido2;
+
+        do {
+            printf("RANGO A EVALUAR\n");
+            printf("Minimo: ");
+            valido1 = scanf("%f", &min);
+            printf("Maximo: ");
+            valido2 = scanf("%f", &max);
+
+            if (min <= max && (valido1 && valido2)) {   //si es valido el rango deja de pedir
+                break;
+            }
+            
+            printf("\n\nEl rango no es valido. Reintente.\n\n");
+            while (getchar() != '\n');
+        } while (1);
+
+        do {
+            printf("Incrementando de a: ");
+            valido1 = scanf("%f", &dif);
+            if (valido1) break;
+
+            printf("INVALIDO.\n");
+            while (getchar() != '\n');
+        } while (1);
     
         printf("\n");
         Lista resultado = calcularRango(l, min, max, dif);
@@ -354,6 +375,7 @@ void ejercicio5(){
 
     printf("\nPresione ENTER para volver al menu\n");
     getchar();
+    getchar(); 
 }
 
 void ejercicio6(){
@@ -370,6 +392,7 @@ void ejercicio6(){
 
         if(scanf("%d", &inputNumber) > 0){
             l_agregar(L1, te_crear(inputNumber));
+            index++;
         }else{
             if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
                 seguirAgregando = false;
@@ -380,7 +403,6 @@ void ejercicio6(){
 
             fflush(stdin);
         }
-        index++;
     }
 
     seguirAgregando = true;

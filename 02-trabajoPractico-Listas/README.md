@@ -9,3 +9,7 @@ Dado que para determinar la complejidad algorítmica hay que pensar en el peor c
 dichos while's recorren de principio a fin L2 y por cada elemento recorre de principio a fin L1.<br>
 Entendiendo esto decimos que la complejidad está dada por la siguiente fórmula: **O(n*m)**.<br>
 Por otro lado, si tenemos en cuenta la implementación de listas utilizada en la ejecución, la complejidad no varía, ya que los métodos utilizados provenientes de este TAD es muy similar en las 3 implementaciones que poseemos, además que la complejidad interna de estas sigue siendo **O(n*m)**.
+
+## Ejercicio 4
+### Complejidad Algorítmica
+O(n), ya que realiza un recorrido lineal de las listas y ejecuta operaciones constantes en cada iteración. La cantidad de iteraciones dependerá del tamaño de N.
