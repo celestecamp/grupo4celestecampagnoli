@@ -148,3 +148,36 @@ int leerEnteroEnRango(int min, int max) {
 
     return valor;
 }
+
+void pausar() {
+    printf("Presione ENTER para continuar...");
+    while (getchar() != '\n'); // limpia buffer
+    getchar(); // espera enter 
+}
+
+int leer_entero() {
+    int numero;
+    while (scanf("%d", &numero) != 1) {
+        printf("Error. Ingrese un numero entero: ");
+        while (getchar() != '\n');
+    }
+    return numero;
+}
+
+int leer_entero_positivo() {
+
+    int numero;
+    while (1) {
+        if (scanf("%d", &numero) != 1) {
+            printf("Error. Ingrese un numero entero positivo: ");
+            while (getchar() != '\n');
+        }
+        else if (numero < 0) {
+            printf("Error. No se permiten negativos: ");
+        }
+        else {
+            while (getchar() != '\n');
+            return numero;
+        }
+    }
+}

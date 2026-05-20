@@ -14,4 +14,7 @@ bool estaEntre(int a, int b, int x); // devuelve true si x esta entre a y b, sin
 
 void limpiarbuffer(); // limpia el buffer de entrada
 int leerEnteroEnRango(int min, int max); // pide un entero entre min y max, validando el ingreso
+void pausar(); // pide al usuario enter para continuar, limpiando el buffer de entrada
+int leer_entero(); // pide un entero, validando el ingreso
+int leer_entero_positivo(); // pide un entero positivo, validando el ingreso
 #endif // VALIDACIONES_H
