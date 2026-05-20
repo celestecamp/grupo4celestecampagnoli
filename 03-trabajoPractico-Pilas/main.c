@@ -219,8 +219,17 @@ void ejercicio4(){
     printf("Ingrese la base a la que desea convertir: ");
     nrootrabase = leer_entero();
     char* resultado = p_ej4_cambiarbase(nrobasedecimal, nrootrabase);
+    if (nrootrabase < 2 || nrootrabase > 16){
+        printf("\nLa base debe estar entre 2 y 16. El numero ingresado se muestra sin cambios: %s\n", resultado);
+        free(resultado);
+        pausar();
+        return;
+    }
     printf("\nEl numero %d en base %d es: %s\n", nrobasedecimal, nrootrabase, resultado);
     free(resultado);
+
+    pausar();
+
 }
 /*
 void ejercicio5(){
