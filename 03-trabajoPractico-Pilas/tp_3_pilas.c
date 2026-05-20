@@ -34,16 +34,174 @@ int contarLongitud(Pila P, Pila Paux){ //Contamos elementos de 'P' desapilando y
 // -----------------------  FUNCIONES DE LOS EJERCICIOS   ----------------------- 
 
 // EJERCICIO 2-a:
+bool p_ej2_existeclave(Pila p, int clave){
+    Pila aux= p_crear();
+    bool encontrado= false;
+
+    while (!p_es_vacia(p)){
+        TipoElemento elemento= p_desapilar(p);
+        if(elemento->clave == clave){
+            encontrado= true;
+        }
+
+        p_apilar(aux, elemento);
+    }
+
+    while (!p_es_vacia(aux)){
+        p_apilar(p, p_desapilar(aux));
+    }
+
+    return encontrado;
+}
 
 // EJERCICIO 2-b:
 
+Pila p_ej2_colocarelemento(Pila p, int posicionordinal, TipoElemento x){
+    
+    Pila aux= p_crear();
+
+    int i= 1;
+
+    while(!p_es_vacia(p) && i<posicionordinal){
+        p_apilar(aux, p_desapilar(p));
+        i++;
+    }
+
+    p_apilar(p, x);
+
+    while(!p_es_vacia(aux)){
+        p_apilar(p, p_desapilar(aux));
+    }
+
+    return p;
+}
+
 // EJERCICIO 2-c:
+Pila p_ej2_eliminarclave(Pila p, int clave){
+    Pila aux= p_crear();
+
+    bool encontrado= false;
+
+    while (!p_es_vacia(p)){
+        TipoElemento elemento= p_desapilar(p);
+        if( elemento->clave== clave && !encontrado){
+            encontrado= true;
+        }
+        else{
+            p_apilar(aux, elemento);
+        }
+    }
+
+    while(!p_es_vacia(aux)){
+        p_apilar(p,p_desapilar(aux));
+    }
+
+    return p;
+}
 
 // EJERCICIO 2-d:
+Pila p_ej2_intercambiarposiciones(Pila p, int pos1, int pos2){
+    Pila aux= p_crear();
+
+    TipoElemento elemento;
+    TipoElemento valor1;
+    TipoElemento valor2;
+
+    int i=1;
+    int total= 0;
+
+    while(!p_es_vacia(p)){
+
+        elemento= p_desapilar(p);
+        
+        if(i==pos1){
+            valor1= elemento;
+        }
+
+        if(i==pos2){
+            valor2= elemento;
+        }
+
+        p_apilar(aux, elemento);
+
+        i++;
+        total++;
+    }
+
+    i=1;
+
+    while(!p_es_vacia(aux)){
+
+        elemento= p_desapilar(aux);
+        int posoriginal= total - i + 1;
+
+        if(posoriginal==pos1){
+            p_apilar(p, valor2);
+        }
+
+        else if(posoriginal==pos2){
+            p_apilar(p, valor1);
+        }
+
+        else{
+            p_apilar(p, elemento);
+        }
+
+        i++;
+    }
+
+    return p;
+}
 
 // EJERCICIO 2-e:
+Pila p_ej2_duplicar(Pila p){
+    Pila copia= p_crear();
+    Pila aux= p_crear();
+    
+    TipoElemento elemento;
+
+    while(!p_es_vacia(p)){
+        elemento= p_desapilar(p);
+
+        p_apilar(copia,elemento);
+        p_apilar(aux, elemento);
+    }
+
+    while (!p_es_vacia(copia)){
+        elemento= p_desapilar(copia);
+
+        p_apilar(p,elemento);
+    }
+
+    while(!p_es_vacia(aux)){
+        elemento= p_desapilar(aux);
+
+        p_apilar(p, elemento);
+    }
+
+    return p;
+}
 
 // EJERCICIO 2-f:
+int p_ej2_cantidadelementos(Pila p){
+    
+    int contador= 0;
+    Pila aux= p_crear();
+    TipoElemento elemento;
+    while(!p_es_vacia(p)){
+        elemento= p_desapilar(p);
+
+        contador++;
+
+        p_apilar(aux,elemento);
+    }
+
+    while(!p_es_vacia(aux)){
+        p_apilar(p, p_desapilar(aux));
+    }
+
+    return contador;
+}
 
 // EJERCICIO 3:
 
