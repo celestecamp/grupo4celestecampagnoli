@@ -151,17 +151,52 @@ int leerEnteroEnRango(int min, int max) {
 
 void pausar() {
     printf("Presione ENTER para continuar...");
-    while (getchar() != '\n'); // limpia buffer
-    getchar(); // espera enter 
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF); 
 }
 
 int leer_entero() {
+    char cadena[100];
+    int i;
     int numero;
-    while (scanf("%d", &numero) != 1) {
-        printf("Error. Ingrese un numero entero: ");
-        while (getchar() != '\n');
+
+    while (1) {
+
+        fgets(cadena, sizeof(cadena), stdin);
+
+        cadena[strcspn(cadena, "\n")] = '\0';
+
+        if (cadena[0] == '\0') {
+
+            printf("Error. Ingrese un numero entero: ");
+            continue;
+        }
+
+        i = 0;
+
+        if (cadena[0] == '-') {
+            i = 1;
+        }
+
+        int valido = 1;
+
+        for (; cadena[i] != '\0'; i++) {
+
+            if (!isdigit(cadena[i])) {
+                valido = 0;
+                break;
+            }
+        }
+
+        if (valido) {
+
+            numero = atoi(cadena);
+
+            return numero;
+        }
+
+        printf("Error. Ingrese un numero entero valido: ");
     }
-    return numero;
 }
 
 int leer_entero_positivo() {
