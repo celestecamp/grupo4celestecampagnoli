@@ -149,6 +149,9 @@ void ejercicio4(){
     }
     printf("\nEl numero %d en base %d es: %s\n", nrobasedecimal, nrootrabase, resultado);
     free(resultado);
+
+    pausar();
+
 }
 /*
 void ejercicio5(){
