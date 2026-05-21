@@ -25,8 +25,8 @@ void ejercicio2_f();
 void ejercicio2();
 //void ejercicio3();
 void ejercicio4();
-//void ejercicio5();
-//void ejercicio6();
+void ejercicio5();
+void ejercicio6();
 //void ejercicio7();
 //void ejercicio8();
 
@@ -37,7 +37,7 @@ void mostrarMenu() {
     printf("3 - Contenidos iguales\n");
     printf("4 - Convertir un numero \n");
     printf("5 - Invertir el contenido\n");
-    printf("6 - Ocurrencias de un elemento\n");
+    printf("6 - Eliminar un elemento\n");
     printf("7 - Elementos en Comun\n");
     printf("8 - Elementos sin repeticion\n");
     printf("0 - Salir\n");
@@ -91,12 +91,12 @@ int main(){
             case 5:
                 limpiarPantalla();
                 printf("-- 5. INVERTIR EL CONTENIDO --\n");
-                //ejercicio5();
+                ejercicio5();
                 break;
             case 6:
                 limpiarPantalla();
-                printf("-- 6. OCURRENCIAS DE UN ELEMENTO --\n\n");
-                //ejercicio6();
+                printf("-- 6. ELIMINAR UN ELEMENTO --\n\n");
+                ejercicio6();
                 break;
             case 7:
                 limpiarPantalla();
@@ -231,15 +231,48 @@ void ejercicio4(){
     pausar();
 
 }
-/*
-void ejercicio5(){
-}
-*/
-/*
-void ejercicio6(){
 
+void ejercicio5(){
+    Pila p = p_crear();
+    printf("Ingrese la cantidad de elementos a cargar en la pila: (1-10)");
+    int cantidad = leer_entero();
+    p = llenarpilas(p,cantidad);
+    printf("\nPila original:\n");
+    p_mostrar(p);
+    Pila Pinvertida = p_ej5_invertir(p);
+    printf("\nPila invertida:\n");
+    p_mostrar(Pinvertida);
 }
-*/
+
+
+void ejercicio6(){
+    Pila p = p_crear();
+    printf("Ingrese la cantidad de elementos a cargar en la pila (1-10) :");
+    int cantidad = leer_entero();
+    p = llenarpilas(p,cantidad);
+    printf("\nPila original:\n");
+    p_mostrar(p);
+    printf("\nIngrese el numero a eliminar de la pila: ");
+    int clave = leer_entero();
+
+    printf("\n Si desea realizar el ejercicio iterativamente, ingrese 1, si desea realizarlo recursivamente, ingrese 2: ");
+    int opcion = leer_entero();
+    while (opcion != 1 && opcion != 2){
+        printf("\nOpcion no valida. Ingrese 1 para iterativo, o 2 para recursivo: ");
+        opcion = leer_entero();
+    }
+    if (opcion == 1){
+        Pila nuevaPila = p_ej6_eliminarclave(p, clave);
+        printf("\nPila actualizada:\n");
+        p_mostrar(nuevaPila);
+    }
+    else{
+        Pila nuevaPila = p_ej6_eliminarclave_recprincipal(p, clave);
+        printf("\nPila actualizada:\n");
+        p_mostrar(nuevaPila);
+    }
+}
+
 /*
 void ejercicio7(){
 }

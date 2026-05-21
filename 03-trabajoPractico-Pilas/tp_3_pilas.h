@@ -11,6 +11,10 @@
 
 
 void p_intercambiar(Pila P, Pila Paux);
+int contarLongitud(Pila P, Pila Paux);
+Pila llenarpilas(Pila p,int cantidad);
+void p_intercambiar(Pila P, Pila Paux);
+
 
 /**
     2.	Dada una pila cargada con valores al azar realizar los siguientes ejercicios:
@@ -73,7 +77,8 @@ Pila  p_ej5_invertir(Pila p);
 // retornar la nueva pila sin la clave que se debe sacar (eliminar). Si la clave no esta se retorna la pila recibida.
 // La definicion vale para ambas resoluciones
 Pila p_ej6_eliminarclave(Pila p, int clave);
-
+Pila p_ej6_eliminarclave_recprincipal(Pila p, int clave);
+void p_ej6_eliminarclave_recaux(Pila p, Pila nuevapila, Pila Paux, int clave, bool* encontrado);
 /**
 7.	Dada dos pilas realizar una función que permita determinar los elementos que tienen en común.
 	Debe retornar una nueva pila con esos elementos (que están en ambas pilas) sin perder las pilas originales.

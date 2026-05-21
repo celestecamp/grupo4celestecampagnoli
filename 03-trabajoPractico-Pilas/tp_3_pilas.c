@@ -1,5 +1,6 @@
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/pilas/headers/pilas.h"
+#include "../libs/validaciones/headers/validaciones.h"
 #include "tp_3_pilas.h"
 #include <stdbool.h>
 #include <string.h>
@@ -8,7 +9,20 @@
 #include <ctype.h>
 
 // -----------------------  FUNCIONES AUXILIARES   ----------------------- 
-
+Pila llenarpilas(Pila p,int cantidad){
+    while (cantidad <= 0 || cantidad > TAMANIO_MAXIMO){
+        printf("Error. Ingrese una cantidad entre 1 y %d: ", TAMANIO_MAXIMO);
+        cantidad = leer_entero();
+    }
+    printf("Ingrese los elementos de la pila:\n");
+    for (int i = 0; i < cantidad; i++){
+        printf("\nIngrese un numero entero: ");
+        int num = leer_entero();
+        TipoElemento teAux = te_crear(num);
+        p_apilar(p,teAux);
+    }
+    return p;
+}
 void p_intercambiar(Pila P, Pila Paux){ // Pasamos el contenido de Paux a P, recordar que queda invertida, [A,B,C] -> [C,B,A]
     TipoElemento tipoAux;
     while (! p_es_vacia(Paux)){
@@ -205,12 +219,6 @@ int p_ej2_cantidadelementos(Pila p){
 
 // EJERCICIO 3:
 
-// EJERCICIO 4:
-
-
-
-
-
 
 // EJERCICIO 4:
 char*  p_ej4_cambiarbase(int nrobasedecimal, int nrootrabase){
@@ -260,6 +268,94 @@ char*  p_ej4_cambiarbase(int nrobasedecimal, int nrootrabase){
 
 
 // EJERCICIO 5:
+Pila  p_ej5_invertir(Pila p){
+    Pila Pinvertida = p_crear();
+    Pila Paux = p_crear();
+    TipoElemento teAux; 
+    while (!p_es_vacia(p)){
+        teAux = p_desapilar(p);
+        p_apilar(Pinvertida,teAux);
+        p_apilar(Paux,teAux);
+    }
+    p_intercambiar(p,Paux);
+    return Pinvertida;
+}
+
 // EJERCICIO 6:
+Pila p_ej6_eliminarclave(Pila p, int clave){
+    if (p_es_vacia(p)){return p;}
+    bool encontrado = false;
+    Pila Paux = p_crear();
+    Pila nuevapila = p_crear();
+
+    TipoElemento teAux;
+
+    while(!p_es_vacia(p)){
+        teAux = p_desapilar(p);
+        p_apilar(Paux,teAux);
+    }
+
+    while (!p_es_vacia(Paux)){
+        teAux = p_desapilar(Paux);
+        if (teAux->clave != clave){
+            p_apilar(p,teAux);
+            p_apilar(nuevapila,teAux);
+        }
+        else{
+            p_apilar(p,teAux);
+            encontrado = true;
+        }
+    }
+    if (encontrado){
+        return nuevapila;
+    }
+    else{
+        return p;
+    }
+}
+
+Pila p_ej6_eliminarclave_recprincipal(Pila p, int clave)
+{
+    if (p_es_vacia(p)) {return p;}
+    TipoElemento teAux;
+    Pila nuevapila = p_crear();
+    Pila Paux = p_crear();
+    bool encontrado = false;
+
+    while (!p_es_vacia(p)){
+        teAux = p_desapilar(p);
+        p_apilar(Paux,teAux);
+    }
+    p_ej6_eliminarclave_recaux(p, nuevapila, Paux, clave, &encontrado);
+
+    if (encontrado){
+        return nuevapila;
+    }
+    else{
+        return p;
+    }
+    
+}
+
+
+void p_ej6_eliminarclave_recaux(Pila p, Pila nuevapila,Pila Paux, int clave, bool* encontrado)
+{
+    
+    if (p_es_vacia(Paux)) {return;}
+    else{
+        TipoElemento teAux = p_desapilar(Paux);
+        if (teAux->clave != clave){
+            p_apilar(p,teAux);
+            p_apilar(nuevapila,teAux);
+        }
+        else{
+            p_apilar(p,teAux);
+            *encontrado = true;
+        }
+        p_ej6_eliminarclave_recaux(p, nuevapila, Paux, clave, encontrado);
+    }
+
+}
+
 // EJERCICIO 7:
 // EJERCICIO 8:
