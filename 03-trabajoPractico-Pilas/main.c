@@ -16,7 +16,7 @@ void mostrarMenu();
 void ingresarOpcion(char *ingresado, int *nro_elegido);
 
 // funciones inicializadoras
-/*
+
 void ejercicio2();
 void ejercicio2_a();
 void ejercicio2_b();
@@ -24,7 +24,6 @@ void ejercicio2_c();
 void ejercicio2_d();
 void ejercicio2_e();
 void ejercicio2_f();
-*/
 //void ejercicio3();
 void ejercicio4();
 void ejercicio5();
@@ -78,7 +77,7 @@ int main(){
         switch (nro_elegido) {
             case 2:
                 limpiarPantalla();
-                //ejercicio2();
+                ejercicio2();
                 break;
             case 3:
                 limpiarPantalla();
@@ -122,17 +121,91 @@ int main(){
         return 0;
 }
 
+void ejercicio2_a(){
+    Pila p = p_crear();
+    for (int i = 0; i < 6; i++)
+        p_apilar(p, te_crear(rand() % 99 + 1));
+    p_mostrar(p);
+    printf("Ingrese la clave a buscar: ");
+    int clave = leer_entero();
+    bool existe = p_ej2_existeclave(p, clave);
+    printf("La clave %d %s en la pila.\n", clave, existe ? "EXISTE" : "NO existe");
+}
 
-/*
+void ejercicio2_b(){
+    Pila p = p_crear();
+    for (int i = 0; i < 5; i++)
+        p_apilar(p, te_crear(rand() % 99 + 1));
+    p_mostrar(p);
+    printf("Ingrese la posicion donde insertar (1 = fondo): ");
+    int pos = leer_entero();
+    printf("Ingrese la clave del nuevo elemento: ");
+    int clave = leer_entero();
+    p = p_ej2_colocarelemento(p, pos, te_crear(clave));
+    printf("\nPila resultado:\n");
+    p_mostrar(p);
+}
+
+void ejercicio2_c(){
+    Pila p = p_crear();
+    for (int i = 0; i < 6; i++)
+        p_apilar(p, te_crear(rand() % 99 + 1));
+    p_mostrar(p);
+    printf("Ingrese la clave a eliminar: ");
+    int clave = leer_entero();
+    p = p_ej2_eliminarclave(p, clave);
+    printf("\nPila resultado:\n");
+    p_mostrar(p);
+}
+
+void ejercicio2_d(){
+    Pila p = p_crear();
+    for (int i = 0; i < 6; i++)
+        p_apilar(p, te_crear(rand() % 99 + 1));
+    p_mostrar(p);
+    printf("Ingrese la primera posicion (1 = fondo): ");
+    int pos1 = leer_entero();
+    printf("Ingrese la segunda posicion: ");
+    int pos2 = leer_entero();
+    p = p_ej2_intercambiarposiciones(p, pos1, pos2);
+    printf("\nPila resultado:\n");
+    p_mostrar(p);
+}
+
+void ejercicio2_e(){
+    Pila p = p_crear();
+    for (int i = 0; i < 4; i++)
+        p_apilar(p, te_crear(rand() % 99 + 1));
+    printf("Pila original:\n");
+    p_mostrar(p);
+    p = p_ej2_duplicar(p);
+    printf("Pila duplicada:\n");
+    p_mostrar(p);
+}
+
+void ejercicio2_f(){
+    Pila p = p_crear();
+    for (int i = 0; i < 7; i++)
+        p_apilar(p, te_crear(rand() % 99 + 1));
+    p_mostrar(p);
+    int cantidad = p_ej2_cantidadelementos(p);
+    printf("La pila tiene %d elementos.\n", cantidad);
+}
+
 void ejercicio2(){
     ejercicio2_a();
+    pausar();
     ejercicio2_b();
+    pausar();
     ejercicio2_c();
+    pausar();
     ejercicio2_d();
+    pausar();
     ejercicio2_e();
+    pausar();
     ejercicio2_f();
 }
-*/
+
 
 /*
 void ejercicio3(){
