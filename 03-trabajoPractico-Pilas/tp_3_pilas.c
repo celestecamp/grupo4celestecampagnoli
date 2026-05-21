@@ -218,6 +218,32 @@ int p_ej2_cantidadelementos(Pila p){
 }
 
 // EJERCICIO 3:
+bool p_ej3_iguales(Pila p1, Pila p2) {
+    bool son_iguales = true;
+    Pila p_aux = p_crear();
+    TipoElemento e1, e2;
+
+   
+    while (!p_es_vacia(p1) && !p_es_vacia(p2) && son_iguales) {
+        e1 = p_desapilar(p1);
+        e2 = p_desapilar(p2);
+        if (e1->clave != e2->clave) {
+            son_iguales = false;
+        }
+        p_apilar(p_aux, e1);
+        p_apilar(p_aux, e2);
+    }
+    if (son_iguales && (!p_es_vacia(p1) || !p_es_vacia(p2))) {
+        son_iguales = false;
+    }
+    while (!p_es_vacia(p_aux)) {
+        e2 = p_desapilar(p_aux); 
+        e1 = p_desapilar(p_aux); 
+        p_apilar(p2, e2);
+        p_apilar(p1, e1);
+    }
+    return son_iguales;
+}
 
 
 // EJERCICIO 4:

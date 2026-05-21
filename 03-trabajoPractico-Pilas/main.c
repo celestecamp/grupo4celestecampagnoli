@@ -206,11 +206,28 @@ void ejercicio2(){
     ejercicio2_f();
 }
 
-
-/*
 void ejercicio3(){
+    Pila p1 = p_crear();
+    Pila p2 = p_crear();
+    printf("\nVamos a comprobar si dos pilas son exactamente iguales\n");
+    printf("\nIngrese la cantidad de elementos a cargar en la Pila 1 (1-10): ");
+    int cant1 = leer_entero();
+    p1 = llenarpilas(p1, cant1);
+    printf("\nIngrese la cantidad de elementos a cargar en la Pila 2 (1-10): ");
+    int cant2 = leer_entero();
+    p2 = llenarpilas(p2, cant2);
+    printf("\nPila 1 original:\n");
+    p_mostrar(p1);
+    printf("\nPila 2 original:\n");
+    p_mostrar(p2);
+    if (p_ej3_iguales(p1, p2)) {
+        printf("\n[RESULTADO] -> Las pilas son EXACTAMENTE IGUALES.\n");
+    } else {
+        printf("\n[RESULTADO] -> Las pilas son DIFERENTES.\n");
+    }
+    pausar();
 }
-*/
+
 void ejercicio4(){
     int nrobasedecimal, nrootrabase;
     printf("\nIngrese un numero decimal: ");
