@@ -95,5 +95,11 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2);
 // retornar la nueva pila con las claves unicas (no deben existir repetidas) y por cada una la cantidad de veces que aparecia en la Pila recibida por parametro
 // Si la pila estavacia retorna pila vacia.
 Pila p_ej8_sacarrepetidos(Pila p);
+void func_8_aumentar(TipoElemento comparado, Pila p);
+void func_procesar_8(Pila pila_res, TipoElemento e);
+void p_mostrar_clave_valor(Pila p);
+void p_mostrar_clave_valor(Pila p);
+void func_8_aumentar(TipoElemento comparado, Pila p);
+void func_procesar_8(Pila pila_res, TipoElemento e);
 
 #endif // TP_PILAS_H
