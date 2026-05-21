@@ -358,4 +358,197 @@ void p_ej6_eliminarclave_recaux(Pila p, Pila nuevapila,Pila Paux, int clave, boo
 }
 
 // EJERCICIO 7:
+
+bool func_buscar(TipoElemento comparado, Pila p){
+    if (p_es_vacia(p)==true){
+        return false;
+    }
+    
+    Pila pila_aux;
+    pila_aux=p_crear();
+    Pila copia;
+    copia=p_crear();
+
+    TipoElemento e1;
+    while (p_es_vacia(p)!=true){
+        e1=p_desapilar(p);
+        p_apilar(pila_aux, e1);
+    }
+
+    while (p_es_vacia(pila_aux)!=true){
+        e1=p_desapilar(pila_aux);
+        p_apilar(p, e1);
+        p_apilar(copia, e1);
+    }
+
+    while (p_es_vacia(copia)!=true){
+    e1=p_desapilar(copia);
+    if (comparado->clave==e1->clave){
+        return true;
+    }
+    }
+
+    return false;
+}
+
+Pila p_ej7_elementoscomunes(Pila p1, Pila p2){
+    Pila pila_res;
+    pila_res=p_crear();
+
+    if (p_es_vacia(p1)||(p_es_vacia(p2))){
+        return pila_res;
+    }
+
+    Pila pila_copia1;
+    pila_copia1=p_crear();
+    Pila pila_copia2;
+    pila_copia2=p_crear();
+
+
+    Pila pila_aux1;
+    pila_aux1=p_crear();
+    TipoElemento e1;
+    while (p_es_vacia(p1)!=true){
+        e1=p_desapilar(p1);
+        p_apilar(pila_aux1, e1);
+    }
+
+    Pila pila_aux2;
+    pila_aux2=p_crear();
+    TipoElemento e2;
+    while (p_es_vacia(p2)!=true){
+        e2=p_desapilar(p2);
+        p_apilar(pila_aux2, e2);
+    }
+
+    while (p_es_vacia(pila_aux1)!=true){
+        e1=p_desapilar(pila_aux1);
+        p_apilar(p1, e1);
+        p_apilar(pila_copia1, e1);
+    }
+
+    while (p_es_vacia(pila_aux2)!=true){
+        e1=p_desapilar(pila_aux2);
+        p_apilar(p2, e1);
+        p_apilar(pila_copia2, e1);
+    }
+
+    TipoElemento e3;
+    while (p_es_vacia(pila_copia1)!=true){
+        e3=p_desapilar(pila_copia1);
+        if (func_buscar(e3, pila_copia2)==true){
+            if (func_buscar(e3, pila_res)==false){
+                p_apilar(pila_res, e3);
+            }
+        }
+    }
+    printf ("\nLa comlpejidad de la solucion del EJ7 es cuadratica, porque tenemos un ciclo anidado.\n");
+   return pila_res;
+}
+
 // EJERCICIO 8:
+
+void func_8_aumentar(TipoElemento comparado, Pila p);
+void func_procesar_8(Pila pila_res, TipoElemento e);
+void p_mostrar_clave_valor(Pila p);
+
+void p_mostrar_clave_valor(Pila p) {
+    if (p_es_vacia(p)) {
+        printf("PILA VACIA !!!\n");
+        return;
+    }
+
+    Pila aux = p_crear();
+    TipoElemento e;
+    int primero = 1;
+
+    while (!p_es_vacia(p)) {
+        e = p_desapilar(p);
+        p_apilar(aux, e);
+    }
+
+    while (!p_es_vacia(aux)) {
+        e = p_desapilar(aux);
+        p_apilar(p, e);
+
+        if (!primero) {
+            printf(" ");
+        }
+
+        printf("%d:%d", e->clave, *(int*)e->valor);
+        primero = 0;
+    }
+
+    printf("\n");
+}
+
+void func_8_aumentar(TipoElemento comparado, Pila p){
+    Pila pila_aux;
+    pila_aux=p_crear();
+    Pila copia;
+    copia=p_crear();
+
+    TipoElemento e1;
+    while (p_es_vacia(p)!=true){
+        e1=p_desapilar(p);
+        p_apilar(pila_aux, e1);
+    }
+
+    while (p_es_vacia(pila_aux)!=true){
+        e1=p_desapilar(pila_aux);
+        p_apilar(p, e1);
+        p_apilar(copia, e1);
+    }
+
+    while (p_es_vacia(copia)!=true){
+    e1=p_desapilar(copia);
+    if (comparado->clave==e1->clave){
+        (*(int*)e1->valor)++;
+    }
+    }
+}
+
+void func_procesar_8(Pila pila_res, TipoElemento e){
+    if (func_buscar(e, pila_res)==false){
+        int *x = malloc(sizeof(int));
+        *x = 1;
+        TipoElemento e2 = te_crear_con_valor(e->clave, x);
+        p_apilar(pila_res, e2);
+    } else {
+        func_8_aumentar(e, pila_res);
+    }
+}
+
+Pila p_ej8_sacarrepetidos(Pila p){
+    Pila pila_res;
+    pila_res=p_crear();
+
+    if (p_es_vacia(p)==true){
+        return pila_res;
+    }
+
+    Pila pila_copia1;
+    pila_copia1=p_crear();
+
+    Pila pila_aux1;
+    pila_aux1=p_crear();
+    TipoElemento e1;
+    while (p_es_vacia(p)!=true){
+        e1=p_desapilar(p);
+        p_apilar(pila_aux1, e1);
+    }
+
+    while (p_es_vacia(pila_aux1)!=true){
+        e1=p_desapilar(pila_aux1);
+        p_apilar(p, e1);
+        p_apilar(pila_copia1, e1);
+    }
+
+    TipoElemento e3;
+    while (!p_es_vacia(pila_copia1)){
+        e3 = p_desapilar(pila_copia1);
+        func_procesar_8(pila_res, e3);
+    }
+    printf ("\nLa comlpejidad de la solucion del EJ8 es cuadratica, porque tenemos un ciclo anidado.\n");
+   return pila_res;
+}
