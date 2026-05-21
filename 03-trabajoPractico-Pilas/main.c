@@ -27,8 +27,8 @@ void ejercicio2();
 void ejercicio4();
 //void ejercicio5();
 //void ejercicio6();
-//void ejercicio7();
-//void ejercicio8();
+void ejercicio7();
+void ejercicio8();
 
 void mostrarMenu() {
     printf("\n\n\n------ TP3: PILAS ------\n\n");
@@ -101,12 +101,12 @@ int main(){
             case 7:
                 limpiarPantalla();
                 printf("-- 7. ELEMENTOS EN COMUN --\n\n");
-                //ejercicio7();
+                ejercicio7();
                 break;
             case 8:
                 limpiarPantalla();
                 printf("-- 8. ELEMENTOS SIN REPETICION --\n\n");
-                //ejercicio8();
+                ejercicio8();
                 break;
             default:
                 limpiarPantalla();
@@ -240,11 +240,71 @@ void ejercicio6(){
 
 }
 */
-/*
-void ejercicio7(){
+void p_mostrar_clave_valor(Pila p);
+void ejercicio7() {
+    Pila p1 = p_crear();
+    Pila p2 = p_crear();
+    Pila res;
+    int cant1, cant2;
+    int i, num;
+
+    printf("\nVamos a hacer ej. 7!\n");
+
+    printf("Cuantos elementos vas a tener en pila 1?\n");
+    cant1 = leerEnteroEnRango(0, 10);
+
+    printf("Bueno, cuantos elementos vas a tener en pila 2?\n");
+    cant2 = leerEnteroEnRango(0, 10);
+
+    printf("Ingresa los elementos para pila 1 (solo enteros positivos):\n");
+    for (i = 0; i < cant1; i++) {
+        printf("Elemento %d: ", i + 1);
+        num = leer_entero_positivo();
+        p_apilar(p1, te_crear(num));
+    }
+
+    printf("Pila 1 cargada!\n");
+
+    printf("Ahora ingresa los elementos para pila 2 (solo enteros positivos):\n");
+    for (i = 0; i < cant2; i++) {
+        printf("Elemento %d: ", i + 1);
+        num = leer_entero_positivo();
+        p_apilar(p2, te_crear(num));
+    }
+
+    printf("Pila 2 cargada!\n");
+    printf("Vamos a ver los elementos comunes:\n");
+
+    res = p_ej7_elementoscomunes(p1, p2);
+    p_mostrar(res);
+
+    printf("\nPresione ENTER para volver al menu principal\n");
+    getchar();
 }
-*/
-/*
-void ejercicio8(){
+
+void ejercicio8() {
+    Pila p = p_crear();
+    Pila res;
+    int cant, i, num;
+
+    printf("\nVamos a hacer ej. 8!\n");
+
+    printf("Cuantos elementos vas a tener en la pila?\n");
+    cant = leerEnteroEnRango(0, 10);
+
+    printf("Ingresa los elementos de la pila:\n");
+    for (i = 0; i < cant; i++) {
+        printf("Elemento %d: ", i + 1);
+        num = leer_entero_positivo();
+        p_apilar(p, te_crear(num));
+    }
+
+    printf("Pila cargada!\n");
+    printf("Vamos a sacar los repetidos:\n");
+
+    res = p_ej8_sacarrepetidos(p);
+    p_mostrar_clave_valor(res);
+
+    printf("\nPresione ENTER para volver al menu principal\n");
+    getchar();
 }
-*/
