@@ -163,6 +163,16 @@ int leer_entero() {
     while (1) {
 
         fgets(cadena, sizeof(cadena), stdin);
+        if (strchr(cadena, '\n') == NULL) {
+
+            // limpiar el buffer restante
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+
+            printf("Error. Numero demasiado largo: ");
+            printf("\nIngrese un numero valido: ");
+            continue; 
+        }
 
         cadena[strcspn(cadena, "\n")] = '\0';
 
@@ -189,9 +199,11 @@ int leer_entero() {
         }
 
         if (valido) {
-
             numero = atoi(cadena);
-
+            while(numero >= 2147483647 || numero<= -2147483648){
+            printf("\n\tError. Ingrese un entero valido (menor a 2.147.483.647 y mayor a -2.147.483.648): ");
+            numero = leer_entero();
+            }
             return numero;
         }
 

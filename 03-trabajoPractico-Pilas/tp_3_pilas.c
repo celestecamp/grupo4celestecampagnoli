@@ -10,7 +10,7 @@
 
 // -----------------------  FUNCIONES AUXILIARES   ----------------------- 
 Pila llenarpilas(Pila p,int cantidad){
-    while (cantidad <= 0 || cantidad > TAMANIO_MAXIMO){
+    while (cantidad < 0 || cantidad > TAMANIO_MAXIMO){
         printf("Error. Ingrese una cantidad entre 1 y %d: ", TAMANIO_MAXIMO);
         cantidad = leer_entero();
     }
@@ -469,7 +469,7 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2){
         }
     }
     printf ("\nLa comlpejidad de la solucion del EJ7 es cuadratica, porque tenemos un ciclo anidado.\n");
-   return pila_res;
+    return pila_res;
 }
 
 // EJERCICIO 8:
@@ -576,5 +576,5 @@ Pila p_ej8_sacarrepetidos(Pila p){
         func_procesar_8(pila_res, e3);
     }
     printf ("\nLa comlpejidad de la solucion del EJ8 es cuadratica, porque tenemos un ciclo anidado.\n");
-   return pila_res;
+    return pila_res;
 }

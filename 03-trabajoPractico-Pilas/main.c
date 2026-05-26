@@ -24,7 +24,7 @@ void ejercicio2_c();
 void ejercicio2_d();
 void ejercicio2_e();
 void ejercicio2_f();
-//void ejercicio3();
+void ejercicio3();
 void ejercicio4();
 void ejercicio5();
 void ejercicio6();
@@ -82,7 +82,7 @@ int main(){
             case 3:
                 limpiarPantalla();
                 printf("-- 3. CONTENIDOS IGUALES --\n");
-                //ejercicio3();
+                ejercicio3();
                 break;
             case 4:
                 limpiarPantalla();
