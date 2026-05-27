@@ -9,7 +9,38 @@
 #include <ctype.h>
 
 // -----------------------  FUNCIONES AUXILIARES   ----------------------- 
-Pila llenarpilas(Pila p,int cantidad){
+int elegirllenar(){ // FUNCION PARA LLENAR PILAS, DEVUELVE 1 PARA LLENAR AL AZAR, O 2 PARA LLENAR MANUALMENTE
+    printf("\n\tSI DESEA CARGAR LA PILA AL AZAR, INGRESE 1, SI DESEA CARGARLA MANUALMENTE, INGRESE 2: ");
+    int opcion = leer_entero();
+    while (opcion != 1 && opcion != 2){
+        printf("\nOpcion no valida. Ingrese 1 para cargar al azar, o 2 para cargar manualmente: ");
+        opcion = leer_entero();
+    }
+    return opcion;
+}
+
+Pila llenarpilasauto(Pila p){ // FUNCION PARA LLENAR PILAS AUTOMATICAMENTE, DEVUELVE LA PILA LLENA
+    printf("Ingrese la cantidad de elementos a cargar en la pila (0-%d): ",TAMANIO_MAXIMO);
+    int cantidad = leer_entero();
+    while (cantidad < 0 || cantidad > TAMANIO_MAXIMO){
+        printf("Error. Ingrese una cantidad entre 0 y %d: ", TAMANIO_MAXIMO);
+        cantidad = leer_entero();
+    }
+    if (cantidad == 0){
+        return p;
+    }
+    printf("\nINGRESANDO LOS %d ELEMENTOS DE LA PILA:",cantidad);
+    for (int i = 0; i < cantidad; i++){
+        int num = rand() % 100; // Genera un número aleatorio entre 0 y 99
+        TipoElemento teAux = te_crear(num);
+        p_apilar(p,teAux);
+    }
+    return p;
+}
+
+Pila llenarpilas(Pila p,int cantidad){ // FUNCION PARA LLENAR PILAS MANUALMENTE, DEVUELVE LA PILA LLENA
+    printf("Ingrese la cantidad de elementos a cargar en la pila (0-%d): ",TAMANIO_MAXIMO);
+    int cantidad = leer_entero();
     while (cantidad < 0 || cantidad > TAMANIO_MAXIMO){
         printf("Error. Ingrese una cantidad entre 1 y %d: ", TAMANIO_MAXIMO);
         cantidad = leer_entero();
