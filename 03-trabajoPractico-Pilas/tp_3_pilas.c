@@ -38,7 +38,7 @@ Pila llenarpilasauto(Pila p){ // FUNCION PARA LLENAR PILAS AUTOMATICAMENTE, DEVU
     return p;
 }
 
-Pila llenarpilas(Pila p,int cantidad){ // FUNCION PARA LLENAR PILAS MANUALMENTE, DEVUELVE LA PILA LLENA
+Pila llenarpilas(Pila p){ // FUNCION PARA LLENAR PILAS MANUALMENTE, DEVUELVE LA PILA LLENA
     printf("Ingrese la cantidad de elementos a cargar en la pila (0-%d): ",TAMANIO_MAXIMO);
     int cantidad = leer_entero();
     while (cantidad < 0 || cantidad > TAMANIO_MAXIMO){
@@ -75,7 +75,29 @@ int contarLongitud(Pila P, Pila Paux){ //Contamos elementos de 'P' desapilando y
     return longitud;
 }
 
+void p_mostrar_con_valor(Pila pila) {
+    if (p_es_vacia(pila)) {
+        printf("PILA VACIA !!!\n");
+        return;
+    }
 
+    Pila Paux = p_crear();
+    TipoElemento X;
+
+    printf("Contenido de la pila: ");
+
+    while (!p_es_vacia(pila)) {
+
+        X = p_desapilar(pila);
+
+        // convertir void* a int*
+        int valor = *((int*) X->valor);
+
+        printf("%d:%d ", X->clave, valor);
+
+        p_apilar(Paux, X);
+    }
+}
 // -----------------------  FUNCIONES DE LOS EJERCICIOS   ----------------------- 
 
 // EJERCICIO 2-a:
@@ -504,40 +526,6 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2){
 }
 
 // EJERCICIO 8:
-
-void func_8_aumentar(TipoElemento comparado, Pila p);
-void func_procesar_8(Pila pila_res, TipoElemento e);
-void p_mostrar_clave_valor(Pila p);
-
-void p_mostrar_clave_valor(Pila p) {
-    if (p_es_vacia(p)) {
-        printf("PILA VACIA !!!\n");
-        return;
-    }
-
-    Pila aux = p_crear();
-    TipoElemento e;
-    int primero = 1;
-
-    while (!p_es_vacia(p)) {
-        e = p_desapilar(p);
-        p_apilar(aux, e);
-    }
-
-    while (!p_es_vacia(aux)) {
-        e = p_desapilar(aux);
-        p_apilar(p, e);
-
-        if (!primero) {
-            printf(" ");
-        }
-
-        printf("%d:%d", e->clave, *(int*)e->valor);
-        primero = 0;
-    }
-
-    printf("\n");
-}
 
 void func_8_aumentar(TipoElemento comparado, Pila p){
     Pila pila_aux;

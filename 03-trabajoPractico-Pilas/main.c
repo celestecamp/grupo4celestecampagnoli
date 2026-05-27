@@ -18,12 +18,12 @@ void ingresarOpcion(char *ingresado, int *nro_elegido);
 // funciones inicializadoras
 
 void ejercicio2();
-void ejercicio2_a();
-void ejercicio2_b();
-void ejercicio2_c();
-void ejercicio2_d();
-void ejercicio2_e();
-void ejercicio2_f();
+void ejercicio2_a(Pila p);
+void ejercicio2_b(Pila p);
+void ejercicio2_c(Pila p);
+void ejercicio2_d(Pila p);
+void ejercicio2_e(Pila p);
+void ejercicio2_f(Pila p);
 void ejercicio3();
 void ejercicio4();
 void ejercicio5();
@@ -38,7 +38,7 @@ void mostrarMenu() {
     printf("3 - Contenidos iguales\n");
     printf("4 - Convertir un numero \n");
     printf("5 - Invertir el contenido\n");
-    printf("6 - Eliminar un elemento\n");
+    printf("6 - Eliminar todas las ocurrencias de un elemento\n");
     printf("7 - Elementos en Comun\n");
     printf("8 - Elementos sin repeticion\n");
     printf("0 - Salir\n");
@@ -96,7 +96,7 @@ int main(){
                 break;
             case 6:
                 limpiarPantalla();
-                printf("-- 6. OCURRENCIAS DE UN ELEMENTO --\n\n");
+                printf("-- 6. ELIMINAR TODAS LAS OCURRENCIAS DE UN ELEMENTO --\n\n");
                 ejercicio6();
                 break;
             case 7:
@@ -121,21 +121,25 @@ int main(){
         return 0;
 }
 
-void ejercicio2_a(){
-    Pila p = p_crear();
-    for (int i = 0; i < 6; i++)
-        p_apilar(p, te_crear(rand() % 99 + 1));
+void ejercicio2_a(Pila p){
+    printf("\nPILA ORIGINAL:\n\t");
     p_mostrar(p);
+    if (p_es_vacia(p)){
+        printf("\nLa pila esta vacia, no se puede buscar ningun elemento.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
     printf("Ingrese la clave a buscar: ");
     int clave = leer_entero();
     bool existe = p_ej2_existeclave(p, clave);
     printf("La clave %d %s en la pila.\n", clave, existe ? "EXISTE" : "NO existe");
+    printf("\n\n");
+    pausar();
 }
 
-void ejercicio2_b(){
-    Pila p = p_crear();
-    for (int i = 0; i < 5; i++)
-        p_apilar(p, te_crear(rand() % 99 + 1));
+void ejercicio2_b(Pila p){
+    printf("\nPILA ORIGINAL:\n\t");
     p_mostrar(p);
     printf("Ingrese la posicion donde insertar (1 = fondo): ");
     int pos = leer_entero();
@@ -144,25 +148,37 @@ void ejercicio2_b(){
     p = p_ej2_colocarelemento(p, pos, te_crear(clave));
     printf("\nPila resultado:\n");
     p_mostrar(p);
+    printf("\n\n");
+    pausar();
 }
 
-void ejercicio2_c(){
-    Pila p = p_crear();
-    for (int i = 0; i < 6; i++)
-        p_apilar(p, te_crear(rand() % 99 + 1));
+void ejercicio2_c(Pila p){
+    printf("\nPILA ORIGINAL:\n\t");
     p_mostrar(p);
+    if (p_es_vacia(p)){
+        printf("\nLa pila esta vacia, no se puede eliminar ningun elemento.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
     printf("Ingrese la clave a eliminar: ");
     int clave = leer_entero();
     p = p_ej2_eliminarclave(p, clave);
     printf("\nPila resultado:\n");
     p_mostrar(p);
+    printf("\n\n");
+    pausar();
 }
 
-void ejercicio2_d(){
-    Pila p = p_crear();
-    for (int i = 0; i < 6; i++)
-        p_apilar(p, te_crear(rand() % 99 + 1));
+void ejercicio2_d(Pila p){
+    printf("\nPILA ORIGINAL:\n\t");
     p_mostrar(p);
+    if (p_es_vacia(p)){
+        printf("\nLa pila esta vacia, no se puede intercambiar ningun elemento.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
     printf("Ingrese la primera posicion (1 = fondo): ");
     int pos1 = leer_entero();
     printf("Ingrese la segunda posicion: ");
@@ -170,61 +186,151 @@ void ejercicio2_d(){
     p = p_ej2_intercambiarposiciones(p, pos1, pos2);
     printf("\nPila resultado:\n");
     p_mostrar(p);
+    printf("\n\n");
+    pausar();
 }
 
-void ejercicio2_e(){
-    Pila p = p_crear();
-    for (int i = 0; i < 4; i++)
-        p_apilar(p, te_crear(rand() % 99 + 1));
-    printf("Pila original:\n");
+void ejercicio2_e(Pila p){
+    printf("\nPILA ORIGINAL:\n\t");
     p_mostrar(p);
+    if (p_es_vacia(p)){
+        printf("\nLa pila esta vacia, no se puede duplicar.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
     p = p_ej2_duplicar(p);
     printf("Pila duplicada:\n");
     p_mostrar(p);
+    printf("\n\n");
+    pausar();
 }
 
-void ejercicio2_f(){
-    Pila p = p_crear();
-    for (int i = 0; i < 7; i++)
-        p_apilar(p, te_crear(rand() % 99 + 1));
+void ejercicio2_f(Pila p){
+    printf("\nPILA ORIGINAL:\n\t");
     p_mostrar(p);
     int cantidad = p_ej2_cantidadelementos(p);
     printf("La pila tiene %d elementos.\n", cantidad);
+    printf("\n\n");
+    pausar();
 }
 
 void ejercicio2(){
-    ejercicio2_a();
+    printf("-- 2. VALORES CARGADOS AL AZAR --\n\n");
+    Pila p = p_crear();
+    printf("\n\tSI DESEA CARGAR LA PILA AL AZAR, INGRESE 1, SI DESEA CARGARLA MANUALMENTE, INGRESE 2: ");
+    int opcion = leer_entero();
+    while (opcion != 1 && opcion != 2){
+        printf("\nOpcion no valida. Ingrese 1 para cargar al azar, o 2 para cargar manualmente: ");
+        opcion = leer_entero();
+    }
+    if (opcion == 1){
+        p = llenarpilasauto(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
+    }
+    else{
+        p = llenarpilas(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
+    }
+    printf("\n\n");
     pausar();
-    ejercicio2_b();
-    pausar();
-    ejercicio2_c();
-    pausar();
-    ejercicio2_d();
-    pausar();
-    ejercicio2_e();
-    pausar();
-    ejercicio2_f();
+    bool volver = false;
+    while (!volver){
+        printf("\n\nSELECCIONE EL EJERCICIO A REALIZAR:\n");
+        printf("\t1) Buscar un elemento.\n");
+        printf("\t2) Colocar un elemento en una posicion ordinal dada.\n");
+        printf("\t3) Eliminar un elemento dado por su clave.\n");
+        printf("\t4) Intercambiar los valores de dos posiciones ordinales.\n");
+        printf("\t5) Duplicar el contenido de una pila.\n");
+        printf("\t6) Contar los elementos de la pila.\n");  
+        printf("\n\t0) Volver al menu principal.\n");
+        printf("\nIngrese el numero del ejercicio a ejecutar (0-6): ");
+
+        int ejercicio = leer_entero();
+        while (ejercicio < 0 || ejercicio > 6){
+            printf("Error. Ingrese un numero entre 0 y 6: ");
+            ejercicio = leer_entero();
+        } 
+        switch (ejercicio){
+            case 1:
+                limpiarPantalla();
+                printf("-- 2.a) BUSCAR UN ELEMENTO --\n\n");
+                ejercicio2_a(p);
+                break;
+            case 2:
+                limpiarPantalla();
+                printf("-- 2.b) COLOCAR UN ELEMENTO EN UNA POSICION ORDINARIA DADA --\n\n");
+                ejercicio2_b(p);
+                break;
+            case 3:
+                limpiarPantalla();
+                printf("-- 2.c) ELIMINAR UN ELEMENTO DADO POR SU CLAVE --\n\n");
+                ejercicio2_c(p);
+                break;
+            case 4:
+                limpiarPantalla();
+                printf("-- 2.d) INTERCAMBIAR LOS VALORES DE DOS POSICIONES ORDINARIAS --\n\n");
+                ejercicio2_d(p);
+                break;
+            case 5:
+                limpiarPantalla();
+                printf("-- 2.e) DUPLICAR EL CONTENIDO DE UNA PILA --\n\n");
+                ejercicio2_e(p);
+                break;
+            case 6:
+                limpiarPantalla();
+                printf("-- 2.f) CONTAR LOS ELEMENTOS DE LA PILA --\n\n");
+                ejercicio2_f(p);
+                break;
+            case 0:
+                volver = true;
+                break;
+            default:
+                limpiarPantalla();
+                printf("No existe esa opcion!\n");
+        }
+    }
 }
+
 
 void ejercicio3(){
     Pila p1 = p_crear();
     Pila p2 = p_crear();
-    printf("\nVamos a comprobar si dos pilas son exactamente iguales\n");
-    printf("\nIngrese la cantidad de elementos a cargar en la Pila 1 (1-10): ");
-    int cant1 = leer_entero();
-    p1 = llenarpilas(p1, cant1);
-    printf("\nIngrese la cantidad de elementos a cargar en la Pila 2 (1-10): ");
-    int cant2 = leer_entero();
-    p2 = llenarpilas(p2, cant2);
-    printf("\nPila 1 original:\n");
+    int opcion = elegirllenar();
+    if (opcion == 1){
+        p1 = llenarpilasauto(p1);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p1);
+    }
+    else{
+        p1 = llenarpilas(p1);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p1);
+    }
+    printf("\n\n PROCEDAMOS A CARGAR LA SEGUNDA PILA:\n\n");
+    opcion = elegirllenar();
+    if (opcion == 1){
+        p2 = llenarpilasauto(p2);
+        printf("\nPILA CARGADA !!!\n\t ");
+    }
+    else{
+        p2 = llenarpilas(p2);
+        printf("\nPILA CARGADA !!!\n\t ");
+    }
+    pausar();    
+    printf("------------------------------------------------------");
+    printf("\n\n PILA 1 ORIGINAL:\n\t ");
     p_mostrar(p1);
-    printf("\nPila 2 original:\n");
+    printf("\n\n PILA 2 ORIGINAL:\n\t ");
     p_mostrar(p2);
     if (p_ej3_iguales(p1, p2)) {
         printf("\n[RESULTADO] -> Las pilas son EXACTAMENTE IGUALES.\n");
     } else {
         printf("\n[RESULTADO] -> Las pilas son DIFERENTES.\n");
     }
+    printf("\n\n");
     pausar();
 }
 
@@ -238,124 +344,144 @@ void ejercicio4(){
     if (nrootrabase < 2 || nrootrabase > 16){
         printf("\nLa base debe estar entre 2 y 16. El numero ingresado se muestra sin cambios: %s\n", resultado);
         free(resultado);
+        printf("\n\n");
         pausar();
         return;
     }
     printf("\nEl numero %d en base %d es: %s\n", nrobasedecimal, nrootrabase, resultado);
     free(resultado);
-
+    printf("\n\n");
     pausar();
 
 }
 
 void ejercicio5(){
     Pila p = p_crear();
-    printf("Ingrese la cantidad de elementos a cargar en la pila: (1-10)");
-    int cantidad = leer_entero();
-    p = llenarpilas(p,cantidad);
-    printf("\nPila original:\n");
-    p_mostrar(p);
+    int opcion = elegirllenar();
+    if (opcion == 1){
+        p = llenarpilasauto(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
+    }
+    else{
+        p = llenarpilas(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
+    }
     Pila Pinvertida = p_ej5_invertir(p);
     printf("\nPila invertida:\n");
     p_mostrar(Pinvertida);
+    printf("\n\n");
+    pausar();
 }
 
 
 void ejercicio6(){
-Pila p = p_crear();
-    printf("Ingrese la cantidad de elementos a cargar en la pila: (1-10)");
-    int cantidad = leer_entero();
-    p = llenarpilas(p,cantidad);
-    printf("\nPila original:\n");
-    p_mostrar(p);
-    printf("\nIngrese el numero a eliminar de la pila: ");
-    int clave = leer_entero();
-
-    printf("\n Si desea realizar el ejercicio iterativamente, ingrese 1, si desea realizarlo recursivamente, ingrese 2: ");
-    int opcion = leer_entero();
-    while (opcion != 1 && opcion != 2){
-        printf("\nOpcion no valida. Ingrese 1 para iterativo, o 2 para recursivo: ");
-        opcion = leer_entero();
-    }
+    Pila p = p_crear();
+    Pila nuevaPila = p_crear();
+    int opcion = elegirllenar();
     if (opcion == 1){
-        Pila nuevaPila = p_ej6_eliminarclave(p, clave);
-        printf("\nPila actualizada:\n");
-        p_mostrar(nuevaPila);
+        p = llenarpilasauto(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
     }
     else{
-        Pila nuevaPila = p_ej6_eliminarclave_recprincipal(p, clave);
-        printf("\nPila actualizada:\n");
-        p_mostrar(nuevaPila);
+        p = llenarpilas(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
     }
+
+    if (!p_es_vacia(p)){
+        printf("\nINGRESE EL NUMERO (clave) A ELIMINAR DE LA PILA: ");
+        int clave = leer_entero();
+        printf("\n Si desea realizar el ejercicio ITERATIVAMENTE, ingrese 1, si desea realizarlo RECURSIVAMENTE, ingrese 2: ");
+        int opcion = leer_entero();
+        while (opcion != 1 && opcion != 2){
+            printf("\nOpcion no valida. Ingrese 1 para ITERATIVO, o 2 para RECURSIVO: ");
+            opcion = leer_entero();
+        }
+        if (opcion == 1){
+            nuevaPila = p_ej6_eliminarclave(p, clave);
+            printf("\nPILA ACTUALIZADA :\n\t",clave);
+            p_mostrar(nuevaPila);
+            printf("\n\n");
+            pausar();
+        }
+        else{
+            nuevaPila = p_ej6_eliminarclave_recprincipal(p, clave);
+            printf("\nPILA ACTUALIZADA :\n\t",clave);
+            p_mostrar(nuevaPila);
+            printf("\n\n");
+            pausar();
+        }
+    }
+    else{
+        printf("\nLa pila esta vacia, no se puede eliminar ningun elemento.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
+    
 }
 
 
 void ejercicio7(){
     Pila p1 = p_crear();
     Pila p2 = p_crear();
-    Pila res;
-    int cant1, cant2;
-    int i, num;
-
-    printf("\nVamos a hacer ej. 7!\n");
-
-    printf("Cuantos elementos vas a tener en pila 1?\n");
-    cant1 = leerEnteroEnRango(0, 10);
-
-    printf("Bueno, cuantos elementos vas a tener en pila 2?\n");
-    cant2 = leerEnteroEnRango(0, 10);
-
-    printf("Ingresa los elementos para pila 1 (solo enteros positivos):\n");
-    for (i = 0; i < cant1; i++) {
-        printf("Elemento %d: ", i + 1);
-        num = leer_entero_positivo();
-        p_apilar(p1, te_crear(num));
+    Pila nueva = p_crear();
+    printf("\n LLENANDO LA PILA 1:\n");
+    int opcion = elegirllenar();
+    if (opcion == 1){
+        p1 = llenarpilasauto(p1);
+        printf("\nPILA CARGADA !!!\n\t ");
     }
-
-    printf("Pila 1 cargada!\n");
-
-    printf("Ahora ingresa los elementos para pila 2 (solo enteros positivos):\n");
-    for (i = 0; i < cant2; i++) {
-        printf("Elemento %d: ", i + 1);
-        num = leer_entero_positivo();
-        p_apilar(p2, te_crear(num));
+    else{
+        p1 = llenarpilas(p1);
+        printf("\nPILA CARGADA !!!\n\t ");
     }
+    printf("\n LLENANDO LA PILA 2:\n");
+    opcion = elegirllenar();
+    if (opcion == 1){
+        p2 = llenarpilasauto(p2);
+        printf("\nPILA CARGADA !!!\n\t ");
+    }
+    else{
+        p2 = llenarpilas(p2);
+        printf("\nPILA CARGADA !!!\n\t ");
+    }
+    printf("------------------------------------------------------");
+    printf("\n\n PILA 1 ORIGINAL:\n\t ");
+    p_mostrar(p1);
+    printf("\n\n PILA 2 ORIGINAL:\n\t ");
+    p_mostrar(p2);
 
-    printf("Pila 2 cargada!\n");
-    printf("Vamos a ver los elementos comunes:\n");
-
-    res = p_ej7_elementoscomunes(p1, p2);
-    p_mostrar(res);
-
-    printf("\nPresione ENTER para volver al menu principal\n");
-    getchar();
+    nueva = p_ej7_elementoscomunes(p1,p2);
+    printf("\n\n PILA CON LOS ELEMENTOS COMUNES ENTRE P1 Y P2 :\n\t");
+    p_mostrar(nueva);
+    printf("\n\n");
+    pausar();
 }
 
 
 void ejercicio8(){
     Pila p = p_crear();
-    Pila res;
-    int cant, i, num;
-
-    printf("\nVamos a hacer ej. 8!\n");
-
-    printf("Cuantos elementos vas a tener en la pila?\n");
-    cant = leerEnteroEnRango(0, 10);
-
-    printf("Ingresa los elementos de la pila:\n");
-    for (i = 0; i < cant; i++) {
-        printf("Elemento %d: ", i + 1);
-        num = leer_entero_positivo();
-        p_apilar(p, te_crear(num));
+    Pila nueva_pila = p_crear();
+    int opcion = elegirllenar();
+    if (opcion == 1){
+        p = llenarpilasauto(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
+    }
+    else{
+        p = llenarpilas(p);
+        printf("\nPILA CARGADA !!!\n\t ");
+        p_mostrar(p);
     }
 
-    printf("Pila cargada!\n");
-    printf("Vamos a sacar los repetidos:\n");
-
-    res = p_ej8_sacarrepetidos(p);
-    p_mostrar_clave_valor(res);
-
-    printf("\nPresione ENTER para volver al menu principal\n");
-    getchar();
+    nueva_pila = p_ej8_sacarrepetidos(p);
+    printf("\n\n PILA SIN REPETIDOS: \n\t");
+    p_mostrar_con_valor(nueva_pila);
+    printf("\n\n");
+    pausar();
 }
 

@@ -12,7 +12,7 @@
 
 void p_intercambiar(Pila P, Pila Paux);
 int contarLongitud(Pila P, Pila Paux);
-Pila llenarpilas(Pila p,int cantidad);
+Pila llenarpilas(Pila p);
 Pila llenarpilasauto(Pila p);
 void p_mostrar_con_valor(Pila pila);
 int elegirllenar();
