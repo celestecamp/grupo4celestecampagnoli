@@ -134,6 +134,9 @@ Pila p_ej2_colocarelemento(Pila p, int posicionordinal, TipoElemento x){
         i++;
     }
 
+    if (i < posicionordinal){
+        printf("\nLa posicion ordinal %d es mayor a la cantidad de elementos disponibles a insertar, se agregara al final.\n", posicionordinal);
+    }
     p_apilar(p, x);
 
     while(!p_es_vacia(aux)){
@@ -303,7 +306,7 @@ bool p_ej3_iguales(Pila p1, Pila p2) {
 char*  p_ej4_cambiarbase(int nrobasedecimal, int nrootrabase){
 
     if (nrootrabase < 2 || nrootrabase > 16){
-        char* str = malloc(20);
+        char* str = malloc(12);
         sprintf(str, "%d", nrobasedecimal);
         return str;
     }
@@ -312,6 +315,11 @@ char*  p_ej4_cambiarbase(int nrobasedecimal, int nrootrabase){
         char* str = malloc(2);
         strcpy(str, "0");
         return str;
+    }
+    bool negativo = false;
+    if (nrobasedecimal < 0){
+        negativo = true;
+        nrobasedecimal = -nrobasedecimal;
     }
 
     Pila p;
@@ -328,6 +336,11 @@ char*  p_ej4_cambiarbase(int nrobasedecimal, int nrootrabase){
 
     char* resultado = malloc(100);
     int i = 0;
+    if (negativo){
+        resultado[i] = '-';
+        i++;
+    }
+
     while (!p_es_vacia(p)){
         teAux = p_desapilar(p);
         if (teAux->clave < 10){
@@ -438,162 +451,100 @@ void p_ej6_eliminarclave_recaux(Pila p, Pila nuevapila,Pila Paux, int clave, boo
 
 // EJERCICIO 7:
 
-bool func_buscar(TipoElemento comparado, Pila p){
-    if (p_es_vacia(p)==true){
-        return false;
-    }
-    
-    Pila pila_aux;
-    pila_aux=p_crear();
-    Pila copia;
-    copia=p_crear();
-
-    TipoElemento e1;
-    while (p_es_vacia(p)!=true){
-        e1=p_desapilar(p);
-        p_apilar(pila_aux, e1);
-    }
-
-    while (p_es_vacia(pila_aux)!=true){
-        e1=p_desapilar(pila_aux);
-        p_apilar(p, e1);
-        p_apilar(copia, e1);
-    }
-
-    while (p_es_vacia(copia)!=true){
-    e1=p_desapilar(copia);
-    if (comparado->clave==e1->clave){
-        return true;
-    }
-    }
-
-    return false;
-}
-
 Pila p_ej7_elementoscomunes(Pila p1, Pila p2){
-    Pila pila_res;
-    pila_res=p_crear();
-
-    if (p_es_vacia(p1)||(p_es_vacia(p2))){
-        return pila_res;
-    }
-
-    Pila pila_copia1;
-    pila_copia1=p_crear();
-    Pila pila_copia2;
-    pila_copia2=p_crear();
-
-
-    Pila pila_aux1;
-    pila_aux1=p_crear();
-    TipoElemento e1;
-    while (p_es_vacia(p1)!=true){
-        e1=p_desapilar(p1);
-        p_apilar(pila_aux1, e1);
-    }
-
-    Pila pila_aux2;
-    pila_aux2=p_crear();
-    TipoElemento e2;
-    while (p_es_vacia(p2)!=true){
-        e2=p_desapilar(p2);
-        p_apilar(pila_aux2, e2);
-    }
-
-    while (p_es_vacia(pila_aux1)!=true){
-        e1=p_desapilar(pila_aux1);
-        p_apilar(p1, e1);
-        p_apilar(pila_copia1, e1);
-    }
-
-    while (p_es_vacia(pila_aux2)!=true){
-        e1=p_desapilar(pila_aux2);
-        p_apilar(p2, e1);
-        p_apilar(pila_copia2, e1);
-    }
-
-    TipoElemento e3;
-    while (p_es_vacia(pila_copia1)!=true){
-        e3=p_desapilar(pila_copia1);
-        if (func_buscar(e3, pila_copia2)==true){
-            if (func_buscar(e3, pila_res)==false){
-                p_apilar(pila_res, e3);
+    Pila Paux1 = p_crear();
+    Pila Paux2 = p_crear();
+    Pila comun = p_crear();
+    TipoElemento teAux1;
+    TipoElemento teAux2;
+    bool encontrado;
+    while(!p_es_vacia(p1)){
+        encontrado = false;
+        teAux1 = p_desapilar(p1);
+        p_apilar(Paux1,teAux1);
+        while(!p_es_vacia(p2) && !encontrado){
+            teAux2 = p_desapilar(p2);
+            p_apilar(Paux2,teAux2);
+            if (teAux1->clave == teAux2->clave){
+                TipoElemento nuevo = te_crear(teAux1->clave);
+                p_apilar (comun,nuevo);
+                encontrado = true;
             }
         }
+        p_intercambiar(p2,Paux2);
     }
-    printf ("\nLa comlpejidad de la solucion del EJ7 es cuadratica, porque tenemos un ciclo anidado.\n");
-    return pila_res;
-}
+    p_intercambiar(p1,Paux1);
 
+    while(!p_es_vacia(comun)){
+        teAux1 = p_desapilar(comun);
+        bool encontrado = false;
+        while(!p_es_vacia(Paux1) && !encontrado){
+            teAux2 = p_desapilar(Paux1);
+            p_apilar(Paux2,teAux2);
+            if(teAux1->clave == teAux2->clave){
+            encontrado = true;
+            }
+        }
+        p_intercambiar(Paux1,Paux2);
+        if (!encontrado){
+            p_apilar(Paux1,teAux1);
+        }
+    }
+    return Paux1;
+}
 // EJERCICIO 8:
 
-void func_8_aumentar(TipoElemento comparado, Pila p){
-    Pila pila_aux;
-    pila_aux=p_crear();
-    Pila copia;
-    copia=p_crear();
-
-    TipoElemento e1;
-    while (p_es_vacia(p)!=true){
-        e1=p_desapilar(p);
-        p_apilar(pila_aux, e1);
-    }
-
-    while (p_es_vacia(pila_aux)!=true){
-        e1=p_desapilar(pila_aux);
-        p_apilar(p, e1);
-        p_apilar(copia, e1);
-    }
-
-    while (p_es_vacia(copia)!=true){
-    e1=p_desapilar(copia);
-    if (comparado->clave==e1->clave){
-        (*(int*)e1->valor)++;
-    }
-    }
-}
-
-void func_procesar_8(Pila pila_res, TipoElemento e){
-    if (func_buscar(e, pila_res)==false){
-        int *x = malloc(sizeof(int));
-        *x = 1;
-        TipoElemento e2 = te_crear_con_valor(e->clave, x);
-        p_apilar(pila_res, e2);
-    } else {
-        func_8_aumentar(e, pila_res);
-    }
-}
-
 Pila p_ej8_sacarrepetidos(Pila p){
-    Pila pila_res;
-    pila_res=p_crear();
-
-    if (p_es_vacia(p)==true){
-        return pila_res;
+    if (p_es_vacia(p)){
+        Pila nueva = p_crear();
+        return nueva;
     }
-
-    Pila pila_copia1;
-    pila_copia1=p_crear();
-
-    Pila pila_aux1;
-    pila_aux1=p_crear();
-    TipoElemento e1;
-    while (p_es_vacia(p)!=true){
-        e1=p_desapilar(p);
-        p_apilar(pila_aux1, e1);
+    
+    Pila Paux = p_crear();
+    Pila OriginalInvertida = p_crear();
+    Pila P_unicos = p_crear();
+    Pila unicos_aux = p_crear(); 
+    TipoElemento teAux;
+    TipoElemento teAux2;
+    
+    while (!p_es_vacia(p)){ 
+        teAux = p_desapilar(p);
+        p_apilar(OriginalInvertida,teAux);
+        p_apilar(Paux,teAux);
     }
-
-    while (p_es_vacia(pila_aux1)!=true){
-        e1=p_desapilar(pila_aux1);
-        p_apilar(p, e1);
-        p_apilar(pila_copia1, e1);
+    p_intercambiar(p,OriginalInvertida);
+    // LLENAR UNA PILA CON ELEMENTOS UNICOS
+    while(!p_es_vacia(Paux)){
+        teAux = p_desapilar(Paux);
+        bool encontrado = false;
+        while(!p_es_vacia(P_unicos) && !encontrado){
+            teAux2 = p_desapilar(P_unicos);
+            p_apilar(unicos_aux,teAux2);
+            if(teAux->clave == teAux2->clave){
+                encontrado = true;
+            }
+        }
+        p_intercambiar(P_unicos,unicos_aux);
+        if (!encontrado){
+            p_apilar(P_unicos,teAux);
+        }
     }
-
-    TipoElemento e3;
-    while (!p_es_vacia(pila_copia1)){
-        e3 = p_desapilar(pila_copia1);
-        func_procesar_8(pila_res, e3);
+    
+    while(!p_es_vacia(P_unicos)){
+        int contador = 0;
+        teAux = p_desapilar(P_unicos);
+        while(!p_es_vacia(p)){
+            teAux2 = p_desapilar(p);
+            p_apilar(OriginalInvertida,teAux2);
+            if(teAux->clave == teAux2->clave){
+                contador++;
+            }
+        }
+        int* valor = malloc(sizeof(int));
+        *valor = contador;
+        p_intercambiar(p,OriginalInvertida);
+        teAux->valor = valor;
+        p_apilar(unicos_aux,teAux);
     }
-    printf ("\nLa comlpejidad de la solucion del EJ8 es cuadratica, porque tenemos un ciclo anidado.\n");
-    return pila_res;
+    return unicos_aux;
 }

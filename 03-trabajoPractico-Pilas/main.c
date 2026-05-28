@@ -141,7 +141,7 @@ void ejercicio2_a(Pila p){
 void ejercicio2_b(Pila p){
     printf("\nPILA ORIGINAL:\n\t");
     p_mostrar(p);
-    printf("Ingrese la posicion donde insertar (1 = fondo): ");
+    printf("Ingrese la posicion donde insertar (1 = TOPE): ");
     int pos = leer_entero();
     printf("Ingrese la clave del nuevo elemento: ");
     int clave = leer_entero();
@@ -179,7 +179,7 @@ void ejercicio2_d(Pila p){
         pausar();
         return;
     }
-    printf("Ingrese la primera posicion (1 = fondo): ");
+    printf("Ingrese la primera posicion (1 = TOPE): ");
     int pos1 = leer_entero();
     printf("Ingrese la segunda posicion: ");
     int pos2 = leer_entero();
@@ -195,6 +195,13 @@ void ejercicio2_e(Pila p){
     p_mostrar(p);
     if (p_es_vacia(p)){
         printf("\nLa pila esta vacia, no se puede duplicar.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
+    int cantidad = p_ej2_cantidadelementos(p);
+    if((cantidad * 2) > TAMANIO_MAXIMO){
+        printf("\nLa pila tiene demasiados elementos para duplicar, se superaria el tamanio maximo permitido de %d elementos.\n", TAMANIO_MAXIMO);
         printf("\n\n");
         pausar();
         return;
@@ -238,6 +245,7 @@ void ejercicio2(){
     pausar();
     bool volver = false;
     while (!volver){
+        printf("\n\n-------------------- MENU DEL PUNTO 2 ----------------------------------");
         printf("\n\nSELECCIONE EL EJERCICIO A REALIZAR:\n");
         printf("\t1) Buscar un elemento.\n");
         printf("\t2) Colocar un elemento en una posicion ordinal dada.\n");
