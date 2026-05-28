@@ -279,7 +279,7 @@ bool p_ej3_iguales(Pila p1, Pila p2) {
     Pila p_aux = p_crear();
     TipoElemento e1, e2;
 
-   
+
     while (!p_es_vacia(p1) && !p_es_vacia(p2) && son_iguales) {
         e1 = p_desapilar(p1);
         e2 = p_desapilar(p2);
