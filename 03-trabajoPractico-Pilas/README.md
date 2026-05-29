@@ -7,20 +7,20 @@
 
 -Complejidad algortimica : En primer caso tenemos un while que itera hasta pila vacia, lo que depende de N siendo N = cantidad de elementos de la pila, por lo que este while
 sumaria O(n). Luego encontramos otro while que itera hasta vaciar la pila auxiliar lo que tambien depende de N sumando otro O(n). 
--Complejidad total : O(n) + O(n) = *O(n), COMPLEJIDAD LINEAL*, siempre pensando en el comportamiento asintotico (n tiende a infinito)
+-Complejidad total : O(n) + O(n) = *O(n), COMPLEJIDAD ORDEN LINEAL*, siempre pensando en el comportamiento asintotico (n tiende a infinito)
 
 *EJERCICIO 4:*
 
 -Complejidad algortimica : En primer caso tenemos un while(N>0) siendo N nuestro numero en base decimal, ciclo el cual lo divide sucesivamente por la nueva base(B).
 La cantidad de iteraciones depende de la cantidad de dígitos del número en la nueva base(2-16). La cantidad de veces que se puede dividir N por B antes de que se llegue a la 
 condicion n>0 es por log b (N) *logaritmo en base 'b' de N*. Luego tenemos un while que itera hasta que se vacia la pila que llenamos con log b (N) elementos.
--Complejidad total : O(log b (N)) +  O(log b (N)) = *O(log b (N)) COMPLEJIDAD LOGARITMICA*
+-Complejidad total : O(log b (N)) +  O(log b (N)) = *O(log b (N)) COMPLEJIDAD ORDEN LOGARITMICO*
 
 *EJERCICIO 5:*
 
 -Complejidad algortimica : Siendo N = cantidad de elementos de la pila. Tiene complejidad lineal, ya que siempre voy a tener que recorrer la pila en su totalidad, este proceso
 lo voy a tener que hacer 2 veces, 1 en el while y otro en p_intercambiar (ambos dependen de N). 
--Complejidad total : O(n) + O(n)  que en comportamiento asintotico es igual a *O(n), COMPLEJIDAD LINEAL*
+-Complejidad total : O(n) + O(n)  que en comportamiento asintotico es igual a *O(n), COMPLEJIDAD ORDEN LINEAL*
 
 *EJERCICIO 6:*
 
@@ -31,20 +31,23 @@ lo voy a tener que hacer 2 veces, 1 en el while y otro en p_intercambiar (ambos 
 -Complejidad algortimica 'ITERATIVA': Siendo N = cantidad de elementos de la pila -> Primero tenemos un while que recorre 'p' dependiendo de N , luego otro while que recorre
 'Paux' O(n).
 
--Complejidad total 'ITERATIVA': O(n)+O(n)= *O(n), COMPLEJIDAD LINEAL* 
+-Complejidad total 'ITERATIVA': O(n)+O(n)= *O(n), COMPLEJIDAD ORDEN LINEAL* 
 
 ## RECURSIVO
 
 -Complejidad algortimica 'RECURSIVA': Siendo N = cantidad de elementos de la pila -> se utiliza una recursion Directa con Parámetros Acumuladores. En la funcion PRINCIPAL aparece un while que depende de N, y la llamada a la funcion AUXILIAR, donde se llama recursivamente hasta vaciar 'Paux', proceso el cual tambien depende de N
 
--Complejidad total 'RECURSIVA' : O(n) + O(n) = *O(n), COMPLEJIDAD LINEAL*
+-Complejidad total 'RECURSIVA' : O(n) + O(n) = *O(n), COMPLEJIDAD ORDEN LINEAL*
 
 *EJERCICIO 7:*
 
--Complejidad algortimica : 
--Complejidad total :
+-Complejidad algortimica : Siendo N = cantidad de elementos de la pila -> En primer caso tenemos un while que recorre la pila 1 por lo cual depende de N, dentro del mismo ciclo hay otros cuatro ciclos, un while que recorre la pila 2 y un intercambiar que tambien dependen de N, luego tenemos un ciclo para recorrer una pila común que depende de N, y un intercambiar que tambien depende de N.
+
+-Complejidad total : *O(n) . [O(n) + O(n) + O(n) + O(n)]* =  O(n) . O(n) = *O(n^2), COMPLEJIDAD ORDEN CUADRATICO*
 
 *EJERCICIO 8:*
 
--Complejidad algortimica : 
--Complejidad total :
+-Complejidad algortimica : Siendo N = cantidad de elementos de la pila -> Primero aparece un while que recorre la pila y depende de N, luego un intercambiar que depende de N, 
+luego un ciclo que recorre una pila auxiliar que depende de N y dentro del mismo dos ciclos mas que dependen de N. Luego otro ciclo anidado.
+
+-Complejidad total : *O(n) + O(n) + O(n) x [O(n) + O(n)] +  O(n) x [O(n) + O(n)]* = O(n) + O(n^2) + O(n^2) = *O(n^2), COMPLEJIDAD ORDEN CUADRATICO* 

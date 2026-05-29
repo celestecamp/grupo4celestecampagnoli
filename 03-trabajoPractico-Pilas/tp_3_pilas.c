@@ -455,6 +455,7 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2){
     Pila Paux1 = p_crear();
     Pila Paux2 = p_crear();
     Pila comun = p_crear();
+    Pila comunAux = p_crear();
     TipoElemento teAux1;
     TipoElemento teAux2;
     bool encontrado;
@@ -466,31 +467,29 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2){
             teAux2 = p_desapilar(p2);
             p_apilar(Paux2,teAux2);
             if (teAux1->clave == teAux2->clave){
-                TipoElemento nuevo = te_crear(teAux1->clave);
-                p_apilar (comun,nuevo);
                 encontrado = true;
             }
         }
         p_intercambiar(p2,Paux2);
+        bool existe = false;
+        if (encontrado){
+            while(!p_es_vacia(comun) && !existe){
+                teAux2 = p_desapilar(comun);
+                p_apilar(comunAux,teAux2);
+                if(teAux1->clave == teAux2->clave){
+                    existe = true;
+                }
+            }
+            p_intercambiar(comun,comunAux);
+            if (!existe){
+                TipoElemento nuevo = te_crear(teAux1->clave);
+                p_apilar(comun,nuevo);
+            }
+        }
     }
     p_intercambiar(p1,Paux1);
 
-    while(!p_es_vacia(comun)){
-        teAux1 = p_desapilar(comun);
-        bool encontrado = false;
-        while(!p_es_vacia(Paux1) && !encontrado){
-            teAux2 = p_desapilar(Paux1);
-            p_apilar(Paux2,teAux2);
-            if(teAux1->clave == teAux2->clave){
-            encontrado = true;
-            }
-        }
-        p_intercambiar(Paux1,Paux2);
-        if (!encontrado){
-            p_apilar(Paux1,teAux1);
-        }
-    }
-    return Paux1;
+    return comun;
 }
 // EJERCICIO 8:
 
