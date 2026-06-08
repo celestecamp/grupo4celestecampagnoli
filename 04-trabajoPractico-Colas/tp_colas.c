@@ -11,6 +11,16 @@
 #include <ctype.h>
 
 // --------- FUNCIONES AUXILIARES ---------
+int elegirllenar_colas(){
+    printf("\n\tSI DESEA CARGAR LA COLA AL AZAR, INGRESE 1, SI DESEA CARGARLA MANUALMENTE, INGRESE 2: ");
+    int opcion = leer_entero();
+    while (opcion != 1 && opcion != 2){
+        printf("\nOpcion no valida. Ingrese 1 para cargar al azar, o 2 para cargar manualmente: ");
+        opcion = leer_entero();
+    }
+    return opcion;
+}
+
 void c_intercambiar(Cola c, Cola caux){  // ENCOLA TODOS LOS ELEMENTOS DE CAUX, EN C
     TipoElemento teAux;
     while(!c_es_vacia(caux)){
