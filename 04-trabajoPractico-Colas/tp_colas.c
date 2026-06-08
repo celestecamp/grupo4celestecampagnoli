@@ -10,6 +10,99 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+// --------- FUNCIONES AUXILIARES ---------
+void c_intercambiar(Cola c, Cola caux){  // ENCOLA TODOS LOS ELEMENTOS DE CAUX, EN C
+    TipoElemento teAux;
+    while(!c_es_vacia(caux)){
+        teAux = c_desencolar(caux);
+        c_encolar(c,teAux);
+    }
+    return;
+}
+
+int c_longitud(Cola c){
+    Cola caux = c_crear();
+    TipoElemento teAux;
+    int contador = 0;
+    while (!c_es_vacia(c)){
+        contador++;
+        teAux = c_desencolar(c);
+        c_encolar(caux,teAux);
+    }
+    c_intercambiar(c,caux);
+    return contador;
+}
+
+void c_mostrar_con_valorstring(Cola cola) {
+    if (c_es_vacia(cola)) {
+        printf("COLA VACIA !!!\n");
+        return;
+    }
+
+    Cola Caux = c_crear();
+    TipoElemento X = te_crear(0);
+
+    printf("-------------------------------------\n");
+    printf("Imprimiendo los elementos de la Cola\n");
+    printf("-------------------------------------\n");
+
+    // Desencolar e imprimir
+    while (!c_es_vacia(cola)) {
+        X = c_desencolar(cola);
+        if (X->valor != NULL) {
+            printf("%s", (char *) X->valor);
+        }
+        printf("\n");
+        c_encolar(Caux, X);
+    }
+
+    // Restaurar la cola original
+    while (!c_es_vacia(Caux)) {
+        X = c_desencolar(Caux);
+        c_encolar(cola, X);
+    }
+
+    printf("\n");
+}
+
+Cola llenarcolasmanual(Cola c){
+    printf("Ingrese la cantidad de elementos a cargar en la cola (0-%d): ",TAMANIO_MAXIMO-1);
+    int cantidad = leer_entero();
+    while (cantidad < 0 || cantidad > TAMANIO_MAXIMO-1){
+        printf("Error. Ingrese una cantidad entre 0 y %d: ", TAMANIO_MAXIMO-1);
+        cantidad = leer_entero();
+    }
+    if (cantidad == 0){
+        return c;
+    }
+    printf("\nINGRESANDO LOS %d ELEMENTOS DE LA COLA:",cantidad);
+    for (int i = 0; i < cantidad; i++){
+        printf("\n\tIngrese un numero entero: ");
+        int num = leer_entero();
+        TipoElemento teAux = te_crear(num);
+        c_encolar(c,teAux);
+    }
+    return c;
+}
+
+Cola llenarcolasauto(Cola c){
+    printf("Ingrese la cantidad de elementos a cargar en la cola (0-%d): ",TAMANIO_MAXIMO-1);
+    int cantidad = leer_entero();
+    while (cantidad < 0 || cantidad > TAMANIO_MAXIMO-1){
+        printf("Error. Ingrese una cantidad entre 0 y %d: ", TAMANIO_MAXIMO-1);
+        cantidad = leer_entero();
+    }
+    if (cantidad == 0){
+        return c;
+    }
+    printf("\nINGRESANDO LOS %d ELEMENTOS DE LA COLA:",cantidad);
+    for (int i = 0; i < cantidad; i++){
+        int num = rand() % 100; // Genera un número aleatorio entre 0 y 99
+        TipoElemento teAux = te_crear(num);
+        c_encolar(c,teAux);
+    }
+    return c;
+}
 // -----------------------  FUNCIONES DE LOS EJERCICIOS   ----------------------- 
 
 // EJERCICIO 2-a:
@@ -67,7 +160,7 @@ bool c_ej3_iguales(Cola c1, Cola c2){
     while (!c_es_vacia(c_aux)) {
         c_encolar(c2, c_desencolar(c_aux));
     }
- 
+
     if (len1 != len2) {
         return false; 
     }
@@ -124,7 +217,49 @@ Cola  c_ej4_colanorepetidos(Cola c){
 
 // EJERCICIO 5:
 Cola c_ej5_divisortotal(Cola c){
+    Cola caux = c_crear();
+    Cola copia = c_crear();
+    Cola copiaAux = c_crear();
+    Cola nueva = c_crear();
+    TipoElemento teAux;
+    TipoElemento teAux2;
+    int longitud = 0;
+    int contador;
 
+    while(!c_es_vacia(c)){
+        longitud ++;
+        teAux = c_desencolar(c);
+        c_encolar(caux,teAux);
+        c_encolar(copia,teAux);
+    }
+
+    while(!c_es_vacia(caux)){
+        teAux = c_desencolar(caux);
+        c_encolar(c,teAux);
+        contador = 0;
+        while(!c_es_vacia(copia)){
+            teAux2 = c_desencolar(copia);
+            c_encolar(copia,teAux2);
+            if(teAux2->clave % teAux->clave == 0){
+                contador++;
+            }
+        }
+        c_intercambiar(copia,copiaAux);
+
+        if(contador == longitud){
+            bool* total = malloc(sizeof(bool));
+            *total = true;
+            TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,total);
+            c_encolar(nueva,te_nuevo);
+        }
+        else if(contador >= longitud/2){
+            bool* parcial = malloc(sizeof(bool));
+            *parcial = false;
+            TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,parcial);
+            c_encolar(nueva,te_nuevo);
+        }
+    }
+    return nueva;
 }
 
 // EJERCICIO 6:
@@ -193,5 +328,99 @@ Lista c_ej6_comunesapilaycola(Pila p, Cola c){
 
 // EJERCICIO 7:
 Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion){
+    Cola nueva = c_crear();
+    TipoElemento teAux;
+    int tiempo_actual;
+    int clientecola1 = 0;
+    int clientecola2 = 0;
+    int clientecola3 = 0;
 
+    while (!c_es_vacia(c1) || !c_es_vacia(c2) || !c_es_vacia(c3)){
+        tiempo_actual = tiempoatencion;
+        while(!c_es_vacia(c1) && tiempo_actual>0){
+                teAux = c_recuperar(c1);
+                teAux->clave = teAux->clave - tiempo_actual;
+                if(teAux->clave < 0){
+                    tiempo_actual = -1*(teAux->clave);
+                    c_desencolar(c1);
+                    clientecola1++;
+                    char* mensaje = malloc(20);
+                    sprintf(mensaje,"Cliente %d Cola 1,\n",clientecola1);
+                    TipoElemento te_nuevo = te_crear_con_valor(1,mensaje);
+                    c_encolar(nueva,te_nuevo);
+                }
+                else if(teAux->clave == 0){
+                    tiempo_actual = 0;
+                    c_desencolar(c1);
+                    clientecola1++;
+                    char* mensaje = malloc(20);
+                    sprintf(mensaje,"Cliente %d Cola 1,\n",clientecola1);
+                    TipoElemento te_nuevo = te_crear_con_valor(1,mensaje);       
+                    c_encolar(nueva,te_nuevo);
+                }
+                else {
+                    tiempo_actual = 0;
+                }
+        }
+
+        tiempo_actual = tiempoatencion;
+        while(!c_es_vacia(c2) && tiempo_actual>0){
+                teAux = c_recuperar(c2);
+                teAux->clave = teAux->clave - tiempo_actual;
+                if(teAux->clave < 0){
+                    tiempo_actual = -1*(teAux->clave);
+                    c_desencolar(c2);
+                    clientecola2++;
+                    char* mensaje = malloc(20);
+                    sprintf(mensaje,"Cliente %d Cola 2,\n",clientecola2);
+                    TipoElemento te_nuevo = te_crear_con_valor(2,mensaje);   
+                    c_encolar(nueva,te_nuevo);
+
+                }
+                else if(teAux->clave == 0){
+                    tiempo_actual = 0;
+                    c_desencolar(c2);
+                    clientecola2++;
+                    char* mensaje = malloc(20);
+                    sprintf(mensaje,"Cliente %d Cola 2,\n",clientecola2);
+                    TipoElemento te_nuevo = te_crear_con_valor(2,mensaje);
+                    c_encolar(nueva,te_nuevo);
+
+                }
+                else {
+                    tiempo_actual = 0;
+                }
+        }
+
+        tiempo_actual = tiempoatencion;
+        while(!c_es_vacia(c3) && tiempo_actual>0){
+                teAux = c_recuperar(c3);
+                teAux->clave = teAux->clave - tiempo_actual;
+                if(teAux->clave < 0){
+                    tiempo_actual = -1*(teAux->clave);
+                    c_desencolar(c3);
+                    clientecola3++;
+                    char* mensaje = malloc(20);
+                    sprintf(mensaje,"Cliente %d Cola 3,\n",clientecola3);
+                    TipoElemento te_nuevo = te_crear_con_valor(3,mensaje);
+                    c_encolar(nueva,te_nuevo);
+
+                }
+                else if(teAux->clave == 0){
+                    tiempo_actual = 0;
+                    c_desencolar(c3);
+                    clientecola3++;
+                    char* mensaje = malloc(20);
+                    sprintf(mensaje,"Cliente %d Cola 3,\n",clientecola3);
+                    TipoElemento te_nuevo = te_crear_con_valor(3,mensaje); 
+                    c_encolar(nueva,te_nuevo);
+
+                }
+                else {
+                    tiempo_actual = 0;
+                }
+        }
+        
+    }
+    return nueva;
 }
