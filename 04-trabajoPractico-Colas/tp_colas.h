@@ -9,7 +9,7 @@
 #include "..\libs\validaciones\headers\validaciones.h"
 
 
-
+int elegirllenar_colas();
 void c_intercambiar(Cola c, Cola caux);
 int c_longitud(Cola c);
 void c_mostrar_con_valorstring(Cola cola);
