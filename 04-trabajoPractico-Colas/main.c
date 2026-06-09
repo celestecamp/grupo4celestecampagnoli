@@ -7,7 +7,6 @@
 #include "tp_colas.h"
 #include "../03-trabajoPractico-Pilas/tp_3_pilas.h"
 #include "../libs/pilas/headers/pilas.h"
-#include "../libs/colas/headers/colas.h"
 #include "../libs/listas/headers/listas.h"
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/validaciones/headers/validaciones.h"

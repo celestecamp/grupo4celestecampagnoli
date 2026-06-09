@@ -396,6 +396,10 @@ Cola c_ej5_divisortotal(Cola c){
 }
 
 // EJERCICIO 6:
+/* Complejidad:
+    - arreglos: O(n*m^2)
+    - arreglos circular: O(n*m)
+    - punteros: O(n*m) */
 Lista c_ej6_comunesapilaycola(Pila p, Cola c) {
 
     Lista l_res = l_crear();
