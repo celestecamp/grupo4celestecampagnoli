@@ -273,64 +273,56 @@ Cola c_ej5_divisortotal(Cola c){
 }
 
 // EJERCICIO 6:
-Lista c_ej6_comunesapilaycola(Pila p, Cola c){
+Lista c_ej6_comunesapilaycola(Pila p, Cola c) {
+
     Lista l_res = l_crear();
 
     if (p_es_vacia(p) || c_es_vacia(c)) return l_res;
 
-    TipoElemento actual_pila, actual_cola;
-    TipoElemento comun;
+    TipoElemento actual_pila, actual_cola, comun;
+
     Pila paux = p_crear();
     Cola caux = c_crear();
 
-    bool encontrado;
-    int longitudP = 0;
-
-    // invierto la pila original a paux
     while (!p_es_vacia(p)) {
         actual_pila = p_desapilar(p);
         p_apilar(paux, actual_pila);
-        longitudP++;
     }
-    
-    int posP = longitudP;
+
+    int posP = 1;
 
     while (!p_es_vacia(paux)) {
         actual_pila = p_desapilar(paux);
 
-        if (l_buscar(l_res, actual_pila->clave)) {
-            posP++;
-            continue;
-        }
-
-        encontrado = false;
-        
         int posC = 1;
+
         while (!c_es_vacia(c)) {
             actual_cola = c_desencolar(c);
 
-            if (!encontrado && actual_cola->clave == actual_pila->clave) {
-                char* str_pos = malloc(10 * sizeof(char));
+            if (actual_pila->clave == actual_cola->clave) {
+                char *str_pos = malloc(20);
                 sprintf(str_pos, "%d:%d", posP, posC);
 
-                comun = te_crear_con_valor(actual_cola->clave, str_pos);
-                l_agregar(l_res, comun);
+                comun = te_crear_con_valor(
+                    actual_pila->clave,
+                    str_pos
+                );
 
-                encontrado = true;
+                l_agregar(l_res, comun);
             }
 
             c_encolar(caux, actual_cola);
             posC++;
         }
 
-        
         while (!c_es_vacia(caux)) {
             actual_cola = c_desencolar(caux);
             c_encolar(c, actual_cola);
         }
-        
-        posP--;
-        p_apilar(p, actual_pila); 
+
+        p_apilar(p, actual_pila);
+
+        posP++;
     }
 
     return l_res;
