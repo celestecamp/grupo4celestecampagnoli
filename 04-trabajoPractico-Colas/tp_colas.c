@@ -340,6 +340,7 @@ Cola c_ej5_divisortotal(Cola c){
     Cola copia = c_crear();
     Cola copiaAux = c_crear();
     Cola nueva = c_crear();
+    bool existe;
     TipoElemento teAux;
     TipoElemento teAux2;
     int longitud = 0;
@@ -365,19 +366,32 @@ Cola c_ej5_divisortotal(Cola c){
         }
         c_intercambiar(copia,copiaAux);
 
-        if(contador == longitud){
-            bool* total = malloc(sizeof(bool));
-            *total = true;
-            TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,total);
-            c_encolar(nueva,te_nuevo);
+        existe = false;
+        int tamnueva = c_longitud(nueva);
+        for(int i = 0; i < tamnueva; i++){
+            teAux2 = c_desencolar(nueva);
+            if(teAux2->clave == teAux->clave){
+                existe = true;
+            }
+            c_encolar(nueva, teAux2);
         }
-        else if(contador > longitud/2){
-            bool* parcial = malloc(sizeof(bool));
-            *parcial = false;
-            TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,parcial);
-            c_encolar(nueva,te_nuevo);
+        if (!existe){
+            if(contador == longitud){
+                bool* total = malloc(sizeof(bool));
+                *total = true;
+                TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,total);
+                c_encolar(nueva,te_nuevo);
+            }
+            else if(contador > longitud/2){
+                bool* parcial = malloc(sizeof(bool));
+                *parcial = false;
+                TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,parcial);
+                c_encolar(nueva,te_nuevo);
+            }
         }
+        
     }
+    
     return nueva;
 }
 
