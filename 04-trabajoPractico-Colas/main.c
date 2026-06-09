@@ -220,7 +220,7 @@ void ejercicio2(){
         c_mostrar(c);
     }
     else{
-        c = llenarcolas(c);
+        c = llenarcolasmanual(c);
         printf("\nCOLA CARGADA !!!\n\t ");
         c_mostrar(c);
     }
