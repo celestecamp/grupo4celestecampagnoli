@@ -116,44 +116,173 @@ int main(){
 }
 
 void ejercicio2_a(Cola c){
-
+    printf("\nCOLA ORIGINAL:\n\t");
+    c_mostrar(c);
+    if (c_es_vacia(c)){
+        printf("\nLa cola esta vacia, no se puede buscar ningun elemento.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
+    printf("Ingrese la clave a buscar: ");
+    int clave = leer_entero();
+    bool existe = c_ej2_existeclave(c, clave);
+    printf("La clave %d %s en la cola.\n", clave, existe ? "EXISTE" : "NO existe");
     printf("\n\n");
     pausar();
 }
 
 void ejercicio2_b(Cola c){
-    
+    printf("\nCOLA ORIGINAL:\n\t");
+    c_mostrar(c);
+    printf("Ingrese la posicion donde insertar (1 = FRENTE): ");
+    int pos = leer_entero();
+    printf("Ingrese la clave del nuevo elemento: ");
+    int clave = leer_entero();
+    c = c_ej2_colarelemento(c, pos, te_crear(clave));
+    printf("\nCola resultado:\n");
+    c_mostrar(c);
     printf("\n\n");
     pausar();
 }
 
 void ejercicio2_c(Cola c){
-    
+    printf("\nCOLA ORIGINAL:\n\t");
+    c_mostrar(c);
+    if (c_es_vacia(c)){
+        printf("\nLa cola esta vacia, no se puede eliminar ningun elemento.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
+    printf("Ingrese la clave a eliminar: ");
+    int clave = leer_entero();
+    c = c_ej2_sacarelemento(c, clave);
+    printf("\nCola resultado:\n");
+    c_mostrar(c);
     printf("\n\n");
     pausar();
 }
 
 void ejercicio2_d(Cola c){
-    
+    printf("\nCOLA ORIGINAL:\n\t");
+    c_mostrar(c);
+    int cantidad = c_ej2_contarelementos(c);
+    printf("La cola tiene %d elementos.\n", cantidad);
     printf("\n\n");
     pausar();
 }
 
 void ejercicio2_e(Cola c){
-
+    printf("\nCOLA ORIGINAL:\n\t");
+    c_mostrar(c);
+    if (c_es_vacia(c)){
+        printf("\nLa cola esta vacia, no se puede copiar.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
+    Cola copia = c_ej2_copiar(c);
+    printf("Cola copia:\n");
+    c_mostrar(copia);
     printf("\n\n");
     pausar();
 }
 
 void ejercicio2_f(Cola c){
-
+    printf("\nCOLA ORIGINAL:\n\t");
+    c_mostrar(c);
+    if (c_es_vacia(c)){
+        printf("\nLa cola esta vacia, no se puede invertir.\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
+    Cola invertida = c_ej2_invertir(c);
+    printf("Cola invertida:\n");
+    c_mostrar(invertida);
     printf("\n\n");
     pausar();
 }
 
 void ejercicio2(){
+    printf("-- 2. VALORES CARGADOS AL AZAR --\n\n");
+    Cola c = c_crear();
+    printf("\n\tSI DESEA CARGAR LA COLA AL AZAR, INGRESE 1, SI DESEA CARGARLA MANUALMENTE, INGRESE 2: ");
+    int opcion = leer_entero();
+    while (opcion != 1 && opcion != 2){
+        printf("\nOpcion no valida. Ingrese 1 para cargar al azar, o 2 para cargar manualmente: ");
+        opcion = leer_entero();
+    }
+    if (opcion == 1){
+        c = llenarcolasauto(c);
+        printf("\nCOLA CARGADA !!!\n\t ");
+        c_mostrar(c);
+    }
+    else{
+        c = llenarcolas(c);
+        printf("\nCOLA CARGADA !!!\n\t ");
+        c_mostrar(c);
+    }
     printf("\n\n");
     pausar();
+    bool volver = false;
+    while (!volver){
+        printf("\n\n-------------------- MENU DEL PUNTO 2 ----------------------------------");
+        printf("\n\nSELECCIONE EL EJERCICIO A REALIZAR:\n");
+        printf("\t1) Buscar un elemento.\n");
+        printf("\t2) Colar un elemento en una posicion ordinal dada.\n");
+        printf("\t3) Sacar un elemento dado por su clave.\n");
+        printf("\t4) Contar los elementos de la cola.\n");
+        printf("\t5) Copiar la cola.\n");
+        printf("\t6) Invertir la cola.\n");
+        printf("\n\t0) Volver al menu principal.\n");
+        printf("\nIngrese el numero del ejercicio a ejecutar (0-6): ");
+
+        int ejercicio = leer_entero();
+        while (ejercicio < 0 || ejercicio > 6){
+            printf("Error. Ingrese un numero entre 0 y 6: ");
+            ejercicio = leer_entero();
+        }
+        switch (ejercicio){
+            case 1:
+                limpiarPantalla();
+                printf("-- 2.a) BUSCAR UN ELEMENTO --\n\n");
+                ejercicio2_a(c);
+                break;
+            case 2:
+                limpiarPantalla();
+                printf("-- 2.b) COLAR UN ELEMENTO EN UNA POSICION ORDINAL DADA --\n\n");
+                ejercicio2_b(c);
+                break;
+            case 3:
+                limpiarPantalla();
+                printf("-- 2.c) SACAR UN ELEMENTO DADO POR SU CLAVE --\n\n");
+                ejercicio2_c(c);
+                break;
+            case 4:
+                limpiarPantalla();
+                printf("-- 2.d) CONTAR LOS ELEMENTOS DE LA COLA --\n\n");
+                ejercicio2_d(c);
+                break;
+            case 5:
+                limpiarPantalla();
+                printf("-- 2.e) COPIAR LA COLA --\n\n");
+                ejercicio2_e(c);
+                break;
+            case 6:
+                limpiarPantalla();
+                printf("-- 2.f) INVERTIR LA COLA --\n\n");
+                ejercicio2_f(c);
+                break;
+            case 0:
+                volver = true;
+                break;
+            default:
+                limpiarPantalla();
+                printf("No existe esa opcion!\n");
+        }
+    }
 }
 
 

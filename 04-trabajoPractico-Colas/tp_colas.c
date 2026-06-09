@@ -117,32 +117,141 @@ Cola llenarcolasauto(Cola c){
 
 // EJERCICIO 2-a:
 bool c_ej2_existeclave(Cola c, int clave){ 
+    Cola nueva= c_crear();
 
+    bool encontrado= false;
+
+    TipoElemento elemento;
+
+    while (!c_es_vacia(c)){
+        elemento= c_desencolar(c);
+        if(elemento ->clave == clave){
+            encontrado= true;
+        }
+
+        c_encolar(nueva, elemento);
+    }
+
+    while(!c_es_vacia(nueva)){
+        c_encolar(c, c_desencolar(nueva));
+    }
+
+    return encontrado;
 }
 
 // EJERCICIO 2-b:
 Cola c_ej2_colarelemento(Cola c, int posicionordinal, TipoElemento X){
+    Cola nueva= c_crear();
 
+    int i= 1;
+    TipoElemento elemento;
+    while(!c_es_vacia(c) && i<posicionordinal){
+        elemento= c_desencolar(c);
+        c_encolar(nueva, elemento);
+        i++;
+    }
+
+    c_encolar(nueva, X);
+
+    while(!c_es_vacia(c)){
+        c_encolar(nueva, c_desencolar(c));
+    }
+
+    while(!c_es_vacia(nueva)){
+        c_encolar(c, c_desencolar(nueva));
+    }
+
+    return c;
 }
 
 // EJERCICIO 2-c:
 Cola c_ej2_sacarelemento(Cola c, int clave){ 
+    Cola nueva= c_crear();
+    Cola aux= c_crear();
 
+    TipoElemento elemento;
+
+    while(!c_es_vacia(c)){
+        elemento= c_desencolar(c);
+        if(elemento->clave==clave){
+            c_encolar(aux, elemento);
+        }
+        else{
+            c_encolar(nueva, elemento);
+        }
+    }
+
+    while(!c_es_vacia(nueva)){
+        c_encolar(c, c_desencolar(nueva));
+    }
+
+    return c;
 }
 
 // EJERCICIO 2-d:
 int c_ej2_contarelementos(Cola c) {
+    Cola nueva= c_crear();
 
+    int contador= 0;
+    TipoElemento elemento;
+
+    while(!c_es_vacia(c)){
+        elemento= c_desencolar(c);
+        contador+= 1;
+        
+        c_encolar(nueva, elemento);
+    }
+
+    while(!c_es_vacia(nueva)){
+    c_encolar(c, c_desencolar(nueva));
+}
+
+    return contador;
 }
 
 // EJERCICIO 2-e:
 Cola c_ej2_copiar(Cola c){
+    Cola aux= c_crear();
+    Cola c2= c_crear();
 
+    while(!c_es_vacia(c)){
+        TipoElemento elemento= c_desencolar(c);
+
+        c_encolar(aux, elemento);
+        c_encolar(c2, elemento);
+    }
+
+    while(!c_es_vacia(aux)){
+        c_encolar(c, c_desencolar(aux));
+    }
+
+    return c2;
 }
 
 // EJERCICIO 2-f:
 Cola c_ej2_invertir(Cola c){ 
+    Pila nueva= p_crear();
+    Cola aux= c_crear();
+    Cola resultado= c_crear();
 
+    TipoElemento elemento;
+
+    while(!c_es_vacia(c)){
+        elemento= c_desencolar(c);
+
+        c_encolar(aux, elemento);
+        p_apilar(nueva, elemento);
+    }
+
+    while(!p_es_vacia(nueva)){
+        c_encolar(resultado, p_desapilar(nueva));
+    }
+
+    while(!c_es_vacia(aux)){
+        c_encolar(c, c_desencolar(aux));
+    }
+
+    return resultado;
 }
 
 // EJERCICIO 3:
