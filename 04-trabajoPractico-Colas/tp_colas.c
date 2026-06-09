@@ -262,7 +262,7 @@ Cola c_ej5_divisortotal(Cola c){
             TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,total);
             c_encolar(nueva,te_nuevo);
         }
-        else if(contador >= longitud/2){
+        else if(contador > longitud/2){
             bool* parcial = malloc(sizeof(bool));
             *parcial = false;
             TipoElemento te_nuevo = te_crear_con_valor(teAux->clave,parcial);

@@ -171,7 +171,33 @@ void ejercicio4(){
 }
 
 void ejercicio5(){
+    Cola c = c_crear();
+    Cola nueva = c_crear();
+    int opcion = elegirllenar_colas();
+    if (opcion == 1){
+        c = llenarcolasauto(c);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    else{
+        c = llenarcolasmanual(c);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    printf("\n\n COLA ORIGINAL:\n ");
+    c_mostrar(c);
+    nueva = c_ej5_divisortotal(c);
+    printf("\n\n COLA CON LOS DIVISORES TOTALES Y PARCIALES DE LOS ELEMENTOS DE LA COLA ORIGINAL:\n ");
+    c_mostrar(nueva);
     printf("\n\n");
+    while(!c_es_vacia(nueva)){
+        TipoElemento teAux = c_desencolar(nueva);
+        bool* valorBool = (bool*) teAux->valor;
+        if(*valorBool == true){
+            printf("El numero %d es un divisor total.\n", teAux->clave);
+        }
+        else{
+            printf("El numero %d es un divisor parcial.\n", teAux->clave);
+        }
+    }
     pausar();
 }
 
@@ -233,7 +259,50 @@ void ejercicio6(){
 
 
 void ejercicio7(){
-    
+    Cola nueva = c_crear();
+    Cola c1 = c_crear();
+    Cola c2 = c_crear();
+    Cola c3 = c_crear();
+    printf("\n LLENANDO LA COLA 1:\n");
+    int opcion = elegirllenar_colas();
+    if (opcion == 1){
+        c1 = llenarcolasauto(c1);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    else{
+        c1 = llenarcolasmanual(c1);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    printf("\n LLENANDO LA COLA 2:\n");
+    opcion = elegirllenar_colas();
+    if (opcion == 1){
+        c2 = llenarcolasauto(c2);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    else{
+        c2 = llenarcolasmanual(c2);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    printf("\n LLENANDO LA COLA 3:\n");
+    opcion = elegirllenar_colas();
+    if (opcion == 1){
+        c3 = llenarcolasauto(c3);
+        printf("\nCOLA CARGADA !!!\n ");
+    }
+    else{
+        c3 = llenarcolasmanual(c3);
+        printf("\nCOLA CARGADA !!!\n ");
+    }
+    printf("------------------------------------------------------");
+    printf("\n\n COLA 1 ORIGINAL:\n ");
+    c_mostrar(c1);
+    printf("\n\n COLA 2 ORIGINAL:\n ");
+    c_mostrar(c2);
+    printf("\n\n COLA 3 ORIGINAL:\n ");
+    c_mostrar(c3);
+    nueva = c_ej7_atenderclientes(c1,c2,c3,10);
+    printf("\n\n ORDEN DE ATENCION DE LOS CLIENTES:\n");
+    c_mostrar_con_valorstring(nueva);
     printf("\n\n");
     pausar();
 }
