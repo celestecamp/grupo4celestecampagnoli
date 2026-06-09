@@ -359,7 +359,7 @@ Cola c_ej5_divisortotal(Cola c){
         while(!c_es_vacia(copia)){
             teAux2 = c_desencolar(copia);
             c_encolar(copiaAux,teAux2);
-            if(teAux2->clave % teAux->clave == 0){
+            if(teAux->clave != 0 && teAux2->clave % teAux->clave == 0){
                 contador++;
             }
         }
