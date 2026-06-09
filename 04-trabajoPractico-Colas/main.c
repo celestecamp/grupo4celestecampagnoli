@@ -287,13 +287,55 @@ void ejercicio2(){
 
 
 void ejercicio3(){
-
+    Cola c1 = c_crear();
+    Cola c2 = c_crear();
+    printf("\nLLENANDO LA COLA 1:\n");
+    int opcion = elegirllenar_colas();
+    if (opcion == 1){
+        c1 = llenarcolasauto(c1);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    else{
+        c1 = llenarcolasmanual(c1);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    printf("\nLLENANDO LA COLA 2:\n");
+    opcion = elegirllenar_colas();
+    if (opcion == 1){
+        c2 = llenarcolasauto(c2);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    else{
+        c2 = llenarcolasmanual(c2);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    printf("\n\n COLA 1 ORIGINAL:\n ");
+    c_mostrar(c1);
+    printf("\n\n COLA 2 ORIGINAL:\n ");
+    c_mostrar(c2);
+    bool iguales = c_ej3_iguales(c1, c2);
+    printf("\nLas colas %s iguales.\n", iguales ? "SON" : "NO SON");
     printf("\n\n");
     pausar();
 }
 
 void ejercicio4(){
-
+    Cola c = c_crear();
+    printf("\nLLENANDO LA COLA:\n");
+    int opcion = elegirllenar_colas();
+    if (opcion == 1){
+        c = llenarcolasauto(c);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    else{
+        c = llenarcolasmanual(c);
+        printf("\nCOLA CARGADA !!!\n\t ");
+    }
+    printf("\n\n COLA ORIGINAL:\n ");
+    c_mostrar(c);
+    Cola resultado = c_ej4_colanorepetidos(c);
+    printf("\n\n COLA CON LOS ELEMENTOS NO REPETIDOS:\n ");
+    c_mostrar(resultado);
     printf("\n\n");
     pausar();
 
@@ -429,6 +471,12 @@ void ejercicio7(){
     c_mostrar(c2);
     printf("\n\n COLA 3 ORIGINAL:\n ");
     c_mostrar(c3);
+    if((c_longitud(c1) + c_longitud(c2) + c_longitud(c3)) >99){
+        printf("La cantidad total de clientes supera el limite de 99, no se pueden atender mas clientes\n");
+        printf("\n\n");
+        pausar();
+        return;
+    }
     nueva = c_ej7_atenderclientes(c1,c2,c3,10);
     printf("\n\n ORDEN DE ATENCION DE LOS CLIENTES:\n");
     c_mostrar_con_valorstring(nueva);
