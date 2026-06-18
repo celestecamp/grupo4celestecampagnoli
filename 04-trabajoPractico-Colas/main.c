@@ -476,7 +476,21 @@ void ejercicio7(){
         pausar();
         return;
     }
-    nueva = c_ej7_atenderclientes(c1,c2,c3,10);
+
+    int q, valido;
+    do {
+            printf("Tiempo Q: ");
+            valido = scanf("%i", &q);
+            if (valido && (q > 0)) {
+                while (getchar() != '\n');
+                break;
+            }
+            
+            printf("Invalido!\n");
+            while (getchar() != '\n');
+        } while (1);
+
+    nueva = c_ej7_atenderclientes(c1,c2,c3,q);
     printf("\n\n ORDEN DE ATENCION DE LOS CLIENTES:\n");
     c_mostrar_con_valorstring(nueva);
     printf("\n\n");
