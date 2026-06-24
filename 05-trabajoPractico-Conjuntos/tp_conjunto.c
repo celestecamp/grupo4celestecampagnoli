@@ -1,0 +1,9 @@
+#include "../libs/tipoElemento/headers/tipo_elemento.h"
+#include "../libs/listas/headers/listas.h"
+#include "../libs/validaciones/headers/validaciones.h"
+#include "tp_conjunto.h"
+#include <stdbool.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
