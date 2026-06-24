@@ -1,5 +1,5 @@
-#include "../libs/conjuntos/headers/conjuntos.h"
-#include "../libs/listas/headers/listas.h"
+#include "../headers/conjuntos.h"
+#include "../../listas/headers/listas.h"
 
 #include <stdlib.h>
 
