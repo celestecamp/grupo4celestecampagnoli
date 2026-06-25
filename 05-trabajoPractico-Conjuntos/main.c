@@ -22,6 +22,7 @@ void ejercicio6();
 void ejercicio7();
 void ejercicio8();
 
+// ------------------ AUXILIARES ------------------
 void cargarConjunto(Conjunto conjunto) { 
     char input_buffer[100];
     int numero_deseado;
@@ -38,7 +39,9 @@ void cargarConjunto(Conjunto conjunto) {
             cont_elem_cargados++;
         }
         else {
-            printf("El valor debe ser un ENTERO VALIDO.\n");
+            if (input_buffer[0] != '.') {
+                printf("El valor debe ser un ENTERO VALIDO.\n");
+            }
         }
     } while (input_buffer[0] != '.' && !cto_es_lleno(conjunto));
 }
@@ -71,6 +74,32 @@ void cargarConjuntoNaturales(Conjunto conjunto){
             }
         }
     } while (numero_natural[0] != '.' && !cto_es_lleno(conjunto));
+}
+
+void cargarListaConjuntos(Lista listaConjuntos){
+    char entero[20];
+    int numero_deseado;
+    Conjunto conjunto;
+    int cantConjuntos = 0;
+
+    do {
+        printf("\nIngrese la cantidad de conjuntos que desea cargar en la lista (minimo 1): ");
+        fgets(entero, sizeof(entero), stdin);
+        cantConjuntos = str_a_int(entero);
+        
+        if (cantConjuntos < 1) {
+            printf("Debe ingresar al menos 1 conjunto.\n");
+        }
+    } while (cantConjuntos < 1);
+
+    for (int i = 0; i < cantConjuntos; i++) {
+        printf("\nCONJUNTO:%d\n", i + 1);
+        conjunto = cto_crear();
+        cargarConjunto(conjunto);
+        l_agregar(listaConjuntos, te_crear_con_valor(0, conjunto));
+    }
+
+    printf("Se cargaron %d conjuntos en la lista.\n" , cantConjuntos);
 }
 
 void mostrarMenu() {
@@ -164,20 +193,107 @@ int main(){
         return 0;
 }
 
-void ejercicio2(){
+void ejercicio2() {
+    Conjunto A = cto_crear();
+    Conjunto B = cto_crear();
+    char inputClave[20]; int clave;
     
+    printf("\n[Carga del conjunto A]\n");
+    cargarConjunto(A);
+    printf("\n[Carga del conjunto B]\n");
+    cargarConjunto(B);
+
+    do {
+        printf("\nClave a buscar: ");
+        fgets(inputClave, sizeof(inputClave), stdin);
+
+        if (!numero_valido(inputClave)) {
+            printf("El valor debe ser un numero valido.\n");
+        }
+    } while (!numero_valido(inputClave));
+
+    clave = str_a_int(inputClave);
+
+    if (!clavePertenece(A, B, clave)) {
+        printf("\nLa clave no pertenece a ningun conjunto!\n");
+    }
+    
+    // union
+    printf("\n----------------------------\n");
+    printf("\n- UNION -\n");
+    printf("\n[Conjunto A] "); cto_mostrar(A);
+    printf("[Conjunto B] "); cto_mostrar(B);
+    
+    Conjunto unionConjuntos = c_ej2_union(A, B);
+    printf("\nUnion de A y B: ");
+    cto_mostrar(unionConjuntos);
+    printf("\n----------------------------\n");
+    
+    // interseccion
+    printf("\n- INTERSECCION -\n");
+    printf("\n[Conjunto A] "); cto_mostrar(A);
+    printf("[Conjunto B] "); cto_mostrar(B);
+
+    Conjunto interseccionConjuntos = c_ej2_interseccion(A, B);
+    printf("\nInterseccion de A y B: ");
+    cto_mostrar(interseccionConjuntos);
+    printf("\n----------------------------\n");
+
+    // diferencia
+    printf("\n- DIFERENCIA -\n");
+    printf("\n[Conjunto A] "); cto_mostrar(A);
+    printf("[Conjunto B] "); cto_mostrar(B);
+
+    printf("\nDiferencia de A y B: \n");
+    Conjunto diferenciaConjuntos = c_ej2_diferencia(A, B);
+    cto_mostrar(diferenciaConjuntos);
+
+    printf("\nDiferencia B y A:\n");
+    Conjunto diferenciaBa = c_ej2_diferencia(B, A);
+    cto_mostrar(diferenciaBa);
+
     printf("\n\n");
     pausar();
 }
 
 
-void ejercicio3(){
+void ejercicio3() {
+    Lista listaConjuntos = l_crear();
+    cargarListaConjuntos(listaConjuntos);
+
+    printf("\nUniones de los conjuntos de la coleccion:\n");
+    Conjunto conjuntoUniones = c_ej3_uniones(listaConjuntos);
+    cto_mostrar(conjuntoUniones);
+
+    printf("\n----------------------------\n");
+
+    Conjunto conjuntoIntersecciones = c_ej3_intersecciones(listaConjuntos);
+    if (cto_es_vacio(conjuntoIntersecciones)) {
+        printf("\nNo hay intersecciones!\n");
+    }
+    else {
+        printf("\nIntersecciones de los conjuntos de la lista:\n");
+        cto_mostrar(conjuntoIntersecciones); // 
+    }  
 
     printf("\n\n");
     pausar();
 }
 
 void ejercicio4(){
+    Conjunto A = cto_crear();
+	Conjunto B = cto_crear();
+	Conjunto C = cto_crear();
+
+    printf("\n[Carga del conjunto A]\n");
+    cargarConjuntoNaturales(A);
+    printf("\n[Carga del conjunto B]\n");
+	cargarConjuntoNaturales(B);
+	printf("\n[Carga del conjunto C]\n");
+	cargarConjuntoNaturales(C);
+
+    if (c_ej4_transitividad(A, B, C)) printf("\nA es subconjunto de C -> se cumple la transitividad\n");
+    else printf("\nNO se cumple la transitividad.\n");
 
     printf("\n\n");
     pausar();
@@ -233,8 +349,27 @@ void ejercicio6(){
 }
 
 
-void ejercicio7(){
-    
+void ejercicio7() {
+    Conjunto A = cto_crear();
+	Conjunto B = cto_crear();
+	Conjunto C = cto_crear();
+
+    printf("\n[Carga del conjunto A]\n");
+    cargarConjuntoNaturales(A);
+    printf("\n[Carga del conjunto B]\n");
+	cargarConjuntoNaturales(B);
+	printf("\n[Carga del conjunto C]\n");
+	cargarConjuntoNaturales(C);
+
+	printf("\n[Conjunto A] "); cto_mostrar(A);
+	printf("\n[Conjunto B] "); cto_mostrar(B);
+	printf("\n[Conjunto C] "); cto_mostrar(C);
+	printf("\n");
+
+    c_ej7_subconjtotalparcial(A, B, C);
+
+    printf("\nComplejidad: sin TAD): O(1) --> constante (sin tener en cuenta cto_diferencia); sino O(n^2) --> cuadratica\nCon TAD Conj. Listas: O(n^2).\n");
+
     printf("\n\n");
     pausar();
 }
