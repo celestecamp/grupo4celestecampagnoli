@@ -27,16 +27,10 @@ Conjunto c_ej2_interseccion(Conjunto A , Conjunto B){
     return conjuntoInterseccion;
 }
 
-bool clavePertenece(Conjunto A, Conjunto B, int clave){
+bool c_ej2_pertenece(Conjunto A, int clave){
     bool resultado = false;
 
     if (cto_pertenece(A, clave)) {
-        printf("\nLa clave pertenece al conjunto A.");
-        resultado = true;
-    }
-         
-    if (cto_pertenece(B, clave)) {
-        printf("\nLa clave pertenece al conjunto B.");
         resultado = true;
     }
 
@@ -277,3 +271,17 @@ void c_ej7_subconjtotalparcial(Conjunto A, Conjunto B, Conjunto C) {
 
 	if (al_menos_uno == 0) printf("Ningun conjunto es subconjunto de otro.\n");
 }
+
+bool c_ej8_soniguales(Conjunto A, Conjunto B){
+	if (cto_cantidad_elementos(A) == cto_cantidad_elementos(B)) {
+    	for (int  i = 1; i <= cto_cantidad_elementos(A); i++) {
+            TipoElemento elemento = cto_recuperar(A, i);
+            if (!cto_pertenece(B, elemento->clave)) {
+                return false;
+            }         
+        } 
+        return true;
+    }
+	
+	return false;
+};

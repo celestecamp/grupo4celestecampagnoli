@@ -179,7 +179,7 @@ int main(){
             case 8:
                 limpiarPantalla();
                 printf("-- 8. CONJUNTOS IGUALES --\n\n");
-                ejercicio7();
+                ejercicio8();
                 break;
             default:
                 limpiarPantalla();
@@ -214,7 +214,7 @@ void ejercicio2() {
 
     clave = str_a_int(inputClave);
 
-    if (!clavePertenece(A, B, clave)) {
+    if (!c_ej2_pertenece(A, clave) && !c_ej2_pertenece(B, clave)) {
         printf("\nLa clave no pertenece a ningun conjunto!\n");
     }
     
@@ -376,7 +376,27 @@ void ejercicio7() {
 
 
 void ejercicio8(){
-    
+    Conjunto A = cto_crear();
+	Conjunto B = cto_crear();
+ 
+	printf("\n[Carga del conjunto A]\n");
+    cargarConjuntoNaturales(A);
+    printf("\n[Carga del conjunto B]\n");
+	cargarConjuntoNaturales(B);
+ 
+	printf("\n[Conjunto A] "); cto_mostrar(A);
+	printf("\n[Conjunto B] "); cto_mostrar(B);
+	printf("\n");
+	 
+    if (c_ej8_soniguales(A, B)) {
+        printf("\nLos conjuntos son iguales.\n");
+    }
+    else {
+        printf("\nLos conjuntos NO son iguales\n");
+    }
+
+    printf("\nComplejidad: Sin TAD: O(n) --> lineal.\n TAD Listas: O(n^2) --> Cuadratica.\n");
+         
     printf("\n\n");
     pausar();
 }

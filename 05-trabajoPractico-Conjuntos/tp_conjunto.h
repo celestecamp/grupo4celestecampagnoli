@@ -12,7 +12,7 @@
 Conjunto c_ej2_union(Conjunto A, Conjunto B);
 Conjunto c_ej2_interseccion(Conjunto A, Conjunto B);
 Conjunto c_ej2_diferencia(Conjunto A, Conjunto B);
-
+bool c_ej2_pertenece(Conjunto conjunto, int clave);
 
 /**
 3.	Desarrollar un algoritmo que dada una colección de conjuntos de elementos tipo numérico (clave) 
@@ -51,8 +51,7 @@ bool c_ej6_subconjuntopropio(Conjunto A, Conjunto B);
 void c_ej7_subconjtotalparcial(Conjunto A, Conjunto B, Conjunto C);
 
 /**
-8.	Dados dos conjuntos de números naturales se pide determinar si son iguales sin importar la posición 
-	de sus elementos.  
+8.	Dados dos conjuntos de números naturales se pide determinar si son iguales sin importar la posición  de sus elementos.  
 	Determinar la complejidad algorítmica.
 */
 bool c_ej8_soniguales(Conjunto A, Conjunto B);
